@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#11101d">
+  <meta name="description" content="Feasted Gaming — where legends rise and champions are forged. Discover gaming tournaments, community news, and upcoming events.">
+  <title>Feasted Gaming | Enter the Arena</title>
+  <style>
+    :root {
+      --bg: #0c0b14;
+      --panel: #171526;
+      --panel2: #201b35;
+      --text: #f7f4ff;
+      --muted: #b9b2d1;
+      --purple: #a78bfa;
+      --teal: #5eead4;
+      --line: rgba(199, 183, 255, .2);
+      --gold: #f6d58b;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--text); background:
+        radial-gradient(ellipse at 80% 0%, rgba(91, 55, 153, .22), transparent 35%),
+        radial-gradient(ellipse at 5% 40%, rgba(31, 130, 135, .12), transparent 30%),
+        var(--bg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; }
+    .wrap { width: min(1100px, calc(100% - 36px)); margin: auto; }
+    header {
+      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px);
+      background: rgba(12, 11, 20, .88); border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 900; letter-spacing: .08em; }
+    .crest { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--purple); border-radius: 12px; color: var(--teal); background: linear-gradient(145deg, #342653, #11101d); }
+    nav { display: flex; align-items: center; gap: 22px; }
+    nav a { text-decoration: none; color: var(--muted); font-size: .94rem; }
+    nav a:hover { color: var(--teal); }
+    .menu { display: none; border: 1px solid var(--line); color: var(--text); background: var(--panel); border-radius: 10px; padding: 8px 12px; }
+    .hero { padding: 84px 0 72px; overflow: hidden; position: relative; }
+    .hero:before { content: "✧"; position: absolute; right: 8%; top: 25px; color: var(--gold); font-size: 5rem; opacity: .6; }
+    .eyebrow { color: var(--teal); text-transform: uppercase; letter-spacing: .22em; font-size: .78rem; font-weight: 800; }
+    h1 { font-size: clamp(2.6rem, 7vw, 5.6rem); line-height: .98; margin: 16px 0 22px; letter-spacing: -.045em; }
+    h1 span { color: var(--purple); text-shadow: 0 0 35px rgba(167,139,250,.22); }
+    .hero p { max-width: 650px; color: var(--muted); font-size: clamp(1rem, 2vw, 1.2rem); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 12px; border: 1px solid var(--line); text-decoration: none; font-weight: 750; cursor: pointer; font: inherit; font-weight: 750; }
+    .btn.primary { background: linear-gradient(120deg, #8b5cf6, #6d5bd0); color: white; border-color: transparent; box-shadow: 0 10px 35px rgba(139,92,246,.22); }
+    .btn.secondary { background: rgba(255,255,255,.03); color: var(--text); }
+    .btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+    .rune-line { height: 1px; background: linear-gradient(90deg, transparent, var(--purple), var(--teal), transparent); opacity: .7; }
+    section { padding: 58px 0; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
+    h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; }
+    .sub { color: var(--muted); margin: 8px 0 0; max-width: 650px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: linear-gradient(150deg, rgba(32,27,53,.92), rgba(18,16,30,.94)); }
+    .card .symbol { font-size: 1.7rem; }
+    .tag { display: inline-block; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--teal); font-size: .76rem; font-weight: 800; letter-spacing: .04em; }
+    h3 { margin: 12px 0 6px; font-size: 1.2rem; }
+    .card p { color: var(--muted); margin: 0 0 14px; }
+    .date { color: var(--gold); font-weight: 750; font-size: .9rem; }
+    .news-list { display: grid; grid-template-columns: 1.2fr .8fr; gap: 16px; }
+    .featured { min-height: 250px; display: flex; flex-direction: column; justify-content: end; background: radial-gradient(ellipse at 70% 20%, rgba(94,234,212,.18), transparent 42%), linear-gradient(145deg, #30204f, #171526 65%); }
+    .featured h3 { font-size: 1.7rem; }
+    .small-news { display: grid; gap: 16px; }
+    .event-row { display: flex; gap: 15px; align-items: center; }
+    .datebox { flex: 0 0 58px; text-align: center; padding: 8px 4px; border: 1px solid var(--line); border-radius: 12px; background: rgba(167,139,250,.1); }
+    .datebox strong { display: block; font-size: 1.3rem; color: var(--gold); }
+    .datebox span { font-size: .72rem; color: var(--muted); text-transform: uppercase; }
+    .event-row h3 { margin: 0 0 3px; }
+    .event-row p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    label { display: block; font-size: .88rem; font-weight: 700; margin-bottom: 6px; }
+    input, textarea, select { width: 100%; padding: 12px 13px; border-radius: 10px; border: 1px solid var(--line); background: #100e1b; color: var(--text); font: inherit; }
+    textarea { resize: vertical; min-height: 130px; }
+    .full { grid-column: 1 / -1; }
+    .note { color: var(--muted); font-size: .85rem; }
+    .status { color: var(--teal); min-height: 1.5em; }
+    footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+    .footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+      .news-list { grid-template-columns: 1fr; }
+      .section-head { align-items: start; flex-direction: column; }
+      nav { display: none; position: absolute; top: 72px; left: 0; right: 0; padding: 18px; background: #11101d; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; }
+      nav.open { display: flex; }
+      .menu { display: block; }
+      .hero { padding: 66px 0 54px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .full { grid-column: auto; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#home" aria-label="Feasted Gaming home"><span class="crest">✦</span><span>FEASTED GAMING</span></a>
+    <button class="menu" id="menuButton" aria-expanded="false" aria-controls="mainNav">Menu ☰</button>
+    <nav id="mainNav" aria-label="Main navigation">
+      <a href="#tournaments">Tournaments</a><a href="#events">Events</a><a href="#news">News</a><a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="home">
+    <div class="wrap">
+      <div class="eyebrow">✧ Your next legend begins here ✧</div>
+      <h1>ENTER THE<br><span>ARENA.</span></h1>
+      <p>Where legends rise, rivals clash, and champions are forged. Find your next tournament, meet your party, and become part of the Feasted Gaming community.</p>
+      <div class="actions"><a class="btn primary" href="#tournaments">Explore tournaments ↗</a><a class="btn secondary" href="#events">View event calendar</a></div>
+    </div>
+  </section>
+  <div class="rune-line"></div>
+
+  <section id="tournaments">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">Choose your challenge</div><h2>Featured Tournaments</h2><p class="sub">Replace these sample listings with your real games, dates, rules, and prizes.</p></div><span class="tag">THE GATES ARE OPEN</span></div>
+      <div class="grid">
+        <article class="card"><div class="symbol">⚔️</div><span class="tag">FIGHTING GAMES</span><h3>Champions' Clash</h3><p>Bring your best fighter and test your skills in a bracket-style showdown.</p><div class="date">Date to be announced</div></article>
+        <article class="card"><div class="symbol">🐉</div><span class="tag">COMMUNITY EVENT</span><h3>Guild Night</h3><p>Team up, meet other players, and take on friendly challenges together.</p><div class="date">Date to be announced</div></article>
+        <article class="card"><div class="symbol">🏆</div><span class="tag">SPECIAL EVENT</span><h3>Feasted Grand Arena</h3><p>A featured competition for the community. Details and entry rules coming soon.</p><div class="date">Date to be announced</div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="events">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">Mark your scroll</div><h2>Upcoming Events</h2><p class="sub">A starter calendar. Add confirmed dates before sharing events publicly.</p></div></div>
+      <div class="card">
+        <div class="event-row"><div class="datebox"><strong>--</strong><span>TBD</span></div><div><h3>Community Tournament</h3><p>Date and registration details coming soon.</p></div></div>
+        <div class="rune-line" style="margin:18px 0"></div>
+        <div class="event-row"><div class="datebox"><strong>--</strong><span>TBD</span></div><div><h3>Open Play Night</h3><p>Bring your friends and join the next community session.</p></div></div>
+        <div class="rune-line" style="margin:18px 0"></div>
+        <div class="event-row"><div class="datebox"><strong>--</strong><span>TBD</span></div><div><h3>Season Finals</h3><p>Finals details will be posted once the schedule is confirmed.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">Dispatches from the realm</div><h2>News & Announcements</h2><p class="sub">Keep players updated with tournament news, rule changes, and community highlights.</p></div></div>
+      <div class="news-list">
+        <article class="card featured"><span class="tag">WELCOME</span><h3>The Feasted Gaming realm is opening</h3><p>We're building a place for players to compete, connect, and create unforgettable gaming moments. Follow along for upcoming events.</p></article>
+        <div class="small-news">
+          <article class="card"><span class="tag">ANNOUNCEMENT</span><h3>More tournaments soon</h3><p>Game titles, formats, entry rules, and schedules will be announced here.</p></article>
+          <article class="card"><span class="tag">COMMUNITY</span><h3>Help shape the arena</h3><p>Send us your game suggestions and ideas for future events using the contact form below.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <div class="section-head"><div><div class="eyebrow">Send a raven</div><h2>Contact the Guild</h2><p class="sub">Questions about events, tournaments, or partnering with Feasted Gaming? Send a message.</p></div></div>
+      <div class="card">
+        <form id="contactForm">
+          <div class="form-grid">
+            <div><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required placeholder="Player name"></div>
+            <div><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+            <div class="full"><label for="topic">What is this about?</label><select id="topic" name="topic"><option>Tournament question</option><option>Event suggestion</option><option>Partnership</option><option>Other</option></select></div>
+            <div class="full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="Write your message here..."></textarea></div>
+            <div class="full"><button class="btn primary" type="submit">Prepare message ↗</button><p class="note">Starter demo: this opens your email app. It does not send or store messages on this website until you connect a form service.</p><p class="status" id="formStatus" role="status"></p></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap footer-row"><div>✦ <strong>FEASTED GAMING</strong> — Forge your legend.</div><div>© <span id="year"></span> Feasted Gaming · Community first.</div></div></footer>
+<script>
+  const menuButton = document.getElementById('menuButton');
+  const nav = document.getElementById('mainNav');
+  menuButton.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    menuButton.setAttribute('aria-expanded', String(open));
+  });
+  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    nav.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+  }));
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('contactForm').addEventListener('submit', event => {
+    event.preventDefault();
+    const data = new FormData(event.target);
+    const recipient = 'YOUR_EMAIL_HERE';
+    const subject = encodeURIComponent('Feasted Gaming: ' + data.get('topic'));
+    const body = encodeURIComponent(
+      'Name: ' + data.get('name') + '\\nEmail: ' + data.get('email') +
+      '\\nTopic: ' + data.get('topic') + '\\n\\n' + data.get('message')
+    );
+    if (recipient === 'YOUR_EMAIL_HERE') {
+      document.getElementById('formStatus').textContent =
+        'Demo only: open index.html in a text editor and replace YOUR_EMAIL_HERE with your email address in the script.';
+      return;
+    }
+    window.location.href = 'mailto:' + recipient + '?subject=' + subject + '&body=' + body;
+  });
+</script>
+</body>
+</html>
