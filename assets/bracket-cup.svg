@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title desc">
+<title id="title">Tournament bracket and trophy</title>
+<desc id="desc">A glowing eight-player tournament bracket leads to a gold champion's cup.</desc>
+<defs>
+  <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0d2740"/><stop offset="1" stop-color="#10152b"/></linearGradient>
+  <linearGradient id="cup" x2="0" y2="1"><stop stop-color="#fff0a6"/><stop offset=".48" stop-color="#ffd36e"/><stop offset="1" stop-color="#bf7e26"/></linearGradient>
+  <filter id="glow"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="720" height="300" rx="20" fill="url(#bg)"/>
+<g fill="none" stroke="#55e7ff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity=".88">
+  <path d="M58 58h66v48h54M58 106h66M58 178h66v-24h54M58 226h66v-48"/>
+  <path d="M178 82h72v48h54M178 166h72v-36"/>
+  <path d="M304 106h76v24h50"/>
+</g>
+<g fill="#0b1a2a" stroke="#8beaff" stroke-width="3">
+  <rect x="32" y="42" width="28" height="32" rx="6"/><rect x="32" y="90" width="28" height="32" rx="6"/>
+  <rect x="32" y="162" width="28" height="32" rx="6"/><rect x="32" y="210" width="28" height="32" rx="6"/>
+  <rect x="178" y="66" width="34" height="32" rx="6"/><rect x="178" y="150" width="34" height="32" rx="6"/>
+  <rect x="304" y="114" width="36" height="32" rx="6"/>
+</g>
+<g fill="#55e7ff" opacity=".9"><circle cx="46" cy="58" r="3"/><circle cx="46" cy="106" r="3"/><circle cx="46" cy="178" r="3"/><circle cx="46" cy="226" r="3"/><circle cx="195" cy="82" r="3"/><circle cx="195" cy="166" r="3"/><circle cx="322" cy="130" r="3"/></g>
+<path d="M430 130h72" stroke="#a783ff" stroke-width="4" stroke-dasharray="7 9" filter="url(#glow)"/>
+<g filter="url(#glow)" transform="translate(520 46)">
+  <path d="M34 16h104v34c0 42-22 68-52 79-30-11-52-37-52-79z" fill="url(#cup)" stroke="#fff0a6" stroke-width="3"/>
+  <path d="M34 33H7v14c0 30 15 45 43 48M138 33h27v14c0 30-15 45-43 48" fill="none" stroke="#ffd36e" stroke-width="11" stroke-linecap="round"/>
+  <path d="M86 129v29M58 160h56v13H58zM48 178h76v12H48z" fill="url(#cup)" stroke="#ffe9a3" stroke-width="2"/>
+  <path d="m86 38 5 14 15 1-11 9 4 14-13-8-13 8 4-14-11-9 15-1z" fill="#fff8d4"/>
+</g>
+<g fill="#a9c0d2" font-family="system-ui,sans-serif" font-size="14" font-weight="700" letter-spacing="2">
+  <text x="34" y="277">OPEN BRACKET</text><text x="535" y="277" fill="#ffd36e">CHAMPION</text>
+</g>
+</svg>
