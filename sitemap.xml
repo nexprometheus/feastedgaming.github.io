@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://nexprometheus.github.io/feastedgaming.github.io/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <image:image>
+      <image:loc>https://nexprometheus.github.io/feastedgaming.github.io/assets/promo-cover.png</image:loc>
+      <image:title>Feasted Gaming sci-fi promo preview</image:title>
+      <image:caption>Feasted Gaming in Pasadena: card games, tournaments, snacks, and membership passes.</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://nexprometheus.github.io/feastedgaming.github.io/assets/feasted-gaming-15-second-promo.gif</image:loc>
+      <image:title>Feasted Gaming 15-second promo animation</image:title>
+      <image:caption>Card games, tournaments, snacks, and the Getting Good Scrub special offer.</image:caption>
+    </image:image>
+  </url>
+  <url><loc>https://nexprometheus.github.io/feastedgaming.github.io/magic.html</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://nexprometheus.github.io/feastedgaming.github.io/pokemon.html</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://nexprometheus.github.io/feastedgaming.github.io/one-piece.html</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://nexprometheus.github.io/feastedgaming.github.io/yugioh.html</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://nexprometheus.github.io/feastedgaming.github.io/lorcana.html</loc><lastmod>2026-10-30</lastmod></url>
+</urlset>
