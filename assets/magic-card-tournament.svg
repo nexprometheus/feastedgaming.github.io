@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title desc">
+<title id="title">Original Magic tournament trading card illustration</title>
+<desc id="desc">A custom fantasy trading card depicts a spellcaster summoning a glowing blue and violet portal.</desc>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#081828"/><stop offset=".55" stop-color="#17153b"/><stop offset="1" stop-color="#0c2440"/></linearGradient>
+ <linearGradient id="frame" x2="1" y2="1"><stop stop-color="#f8d789"/><stop offset=".45" stop-color="#8bdcf3"/><stop offset="1" stop-color="#a88aff"/></linearGradient>
+ <radialGradient id="portal"><stop stop-color="#efffff"/><stop offset=".2" stop-color="#76edff"/><stop offset=".56" stop-color="#6e8cff" stop-opacity=".75"/><stop offset="1" stop-color="#8e5bff" stop-opacity="0"/></radialGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="720" height="300" rx="20" fill="url(#bg)"/>
+<g fill="#d8f5ff" opacity=".74"><circle cx="45" cy="46" r="1.4"/><circle cx="125" cy="211" r="1.2"/><circle cx="187" cy="77" r="1.3"/><circle cx="565" cy="52" r="1.5"/><circle cx="664" cy="178" r="1.2"/><circle cx="606" cy="250" r="1.3"/><circle cx="100" cy="263" r="1.1"/></g>
+<g transform="translate(240 16) rotate(-3 120 134)">
+ <rect x="4" y="7" width="232" height="266" rx="17" fill="#030a13" opacity=".66"/>
+ <rect x="0" y="0" width="232" height="266" rx="17" fill="#142238" stroke="url(#frame)" stroke-width="5"/>
+ <rect x="12" y="12" width="208" height="27" rx="6" fill="#182b43" stroke="#8dbfe0"/>
+ <text x="23" y="31" fill="#f0f6ff" font-family="Georgia,serif" font-size="14" font-weight="700">Arcane Duel</text>
+ <circle cx="193" cy="25" r="8" fill="#55e7ff" stroke="#d8f8ff"/><circle cx="212" cy="25" r="8" fill="#a783ff" stroke="#eee0ff"/>
+ <rect x="14" y="48" width="204" height="143" rx="8" fill="#101e3d" stroke="#849dc2" stroke-width="2"/>
+ <circle cx="115" cy="111" r="63" fill="url(#portal)" filter="url(#glow)"/>
+ <g fill="none" stroke="#93efff" opacity=".85">
+  <path d="M71 162c14-27 17-57 36-80 14 18 20 50 14 76M159 164c-10-25-8-52-1-72 19 19 25 40 25 71" stroke-width="4"/>
+  <path d="M61 179c15-19 28-23 51-23 23 0 38 5 57 23" stroke-width="3"/>
+ </g>
+ <path d="M104 154c-11 6-18 17-19 26h63c-3-12-12-21-25-26l-2-22h-15z" fill="#111932" stroke="#b3efff" stroke-width="2"/>
+ <path d="M115 80v36m-18-18h36" stroke="#fff4bf" stroke-width="3" filter="url(#glow)"/>
+ <rect x="14" y="199" width="204" height="53" rx="7" fill="#17283a" stroke="#8dbfe0"/>
+ <text x="24" y="219" fill="#d9f3ff" font-family="Georgia,serif" font-size="10" font-weight="700">FANTASY TRADING CARD</text>
+ <text x="24" y="237" fill="#b8cbdc" font-family="system-ui,sans-serif" font-size="9">Choose a format. Find your next match.</text>
+ <text x="24" y="248" fill="#b8cbdc" font-family="system-ui,sans-serif" font-size="9">Build your strategy in the arena.</text>
+</g>
+<g fill="#d9efff" font-family="system-ui,sans-serif" text-anchor="middle">
+ <text x="500" y="100" font-size="13" font-weight="700" letter-spacing="3" fill="#55e7ff">MAGIC TOURNAMENTS</text>
+ <text x="500" y="132" font-size="22" font-weight="800">Four days.</text>
+ <text x="500" y="159" font-size="22" font-weight="800">Your next match.</text>
+ <text x="500" y="197" font-size="13" font-weight="700" letter-spacing="2" fill="#ffd36e">MON · THU · FRI · SUN</text>
+ <text x="500" y="229" font-size="11" fill="#a9c0d2">Ask staff for this week's details</text>
+</g>
+</svg>
