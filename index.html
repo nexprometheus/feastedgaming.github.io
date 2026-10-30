@@ -1,207 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#11101d">
-  <meta name="description" content="Feasted Gaming — where legends rise and champions are forged. Discover gaming tournaments, community news, and upcoming events.">
-  <title>Feasted Gaming | Enter the Arena</title>
+  <meta name="theme-color" content="#071321">
+  <meta name="description" content="Feasted Gaming: sci-fi inspired trading card game meetups, tournaments, food, and community events.">
+  <title>Feasted Gaming — Enter the Nexus</title>
+  <link rel="icon" type="image/svg+xml" href="assets/crest.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg: #0c0b14;
-      --panel: #171526;
-      --panel2: #201b35;
-      --text: #f7f4ff;
-      --muted: #b9b2d1;
-      --purple: #a78bfa;
-      --teal: #5eead4;
-      --line: rgba(199, 183, 255, .2);
-      --gold: #f6d58b;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0; color: var(--text); background:
-        radial-gradient(ellipse at 80% 0%, rgba(91, 55, 153, .22), transparent 35%),
-        radial-gradient(ellipse at 5% 40%, rgba(31, 130, 135, .12), transparent 30%),
-        var(--bg);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.6;
-    }
-    a { color: inherit; }
-    .wrap { width: min(1100px, calc(100% - 36px)); margin: auto; }
-    header {
-      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(14px);
-      background: rgba(12, 11, 20, .88); border-bottom: 1px solid var(--line);
-    }
-    .nav { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 900; letter-spacing: .08em; }
-    .crest { display: grid; place-items: center; width: 38px; height: 38px; border: 1px solid var(--purple); border-radius: 12px; color: var(--teal); background: linear-gradient(145deg, #342653, #11101d); }
-    nav { display: flex; align-items: center; gap: 22px; }
-    nav a { text-decoration: none; color: var(--muted); font-size: .94rem; }
-    nav a:hover { color: var(--teal); }
-    .menu { display: none; border: 1px solid var(--line); color: var(--text); background: var(--panel); border-radius: 10px; padding: 8px 12px; }
-    .hero { padding: 84px 0 72px; overflow: hidden; position: relative; }
-    .hero:before { content: "✧"; position: absolute; right: 8%; top: 25px; color: var(--gold); font-size: 5rem; opacity: .6; }
-    .eyebrow { color: var(--teal); text-transform: uppercase; letter-spacing: .22em; font-size: .78rem; font-weight: 800; }
-    h1 { font-size: clamp(2.6rem, 7vw, 5.6rem); line-height: .98; margin: 16px 0 22px; letter-spacing: -.045em; }
-    h1 span { color: var(--purple); text-shadow: 0 0 35px rgba(167,139,250,.22); }
-    .hero p { max-width: 650px; color: var(--muted); font-size: clamp(1rem, 2vw, 1.2rem); }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-    .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 18px; border-radius: 12px; border: 1px solid var(--line); text-decoration: none; font-weight: 750; cursor: pointer; font: inherit; font-weight: 750; }
-    .btn.primary { background: linear-gradient(120deg, #8b5cf6, #6d5bd0); color: white; border-color: transparent; box-shadow: 0 10px 35px rgba(139,92,246,.22); }
-    .btn.secondary { background: rgba(255,255,255,.03); color: var(--text); }
-    .btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
-    .rune-line { height: 1px; background: linear-gradient(90deg, transparent, var(--purple), var(--teal), transparent); opacity: .7; }
-    section { padding: 58px 0; }
-    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
-    h2 { margin: 0; font-size: clamp(1.8rem, 4vw, 2.6rem); line-height: 1.15; }
-    .sub { color: var(--muted); margin: 8px 0 0; max-width: 650px; }
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .card { border: 1px solid var(--line); border-radius: 18px; padding: 22px; background: linear-gradient(150deg, rgba(32,27,53,.92), rgba(18,16,30,.94)); }
-    .card .symbol { font-size: 1.7rem; }
-    .tag { display: inline-block; padding: 4px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--teal); font-size: .76rem; font-weight: 800; letter-spacing: .04em; }
-    h3 { margin: 12px 0 6px; font-size: 1.2rem; }
-    .card p { color: var(--muted); margin: 0 0 14px; }
-    .date { color: var(--gold); font-weight: 750; font-size: .9rem; }
-    .news-list { display: grid; grid-template-columns: 1.2fr .8fr; gap: 16px; }
-    .featured { min-height: 250px; display: flex; flex-direction: column; justify-content: end; background: radial-gradient(ellipse at 70% 20%, rgba(94,234,212,.18), transparent 42%), linear-gradient(145deg, #30204f, #171526 65%); }
-    .featured h3 { font-size: 1.7rem; }
-    .small-news { display: grid; gap: 16px; }
-    .event-row { display: flex; gap: 15px; align-items: center; }
-    .datebox { flex: 0 0 58px; text-align: center; padding: 8px 4px; border: 1px solid var(--line); border-radius: 12px; background: rgba(167,139,250,.1); }
-    .datebox strong { display: block; font-size: 1.3rem; color: var(--gold); }
-    .datebox span { font-size: .72rem; color: var(--muted); text-transform: uppercase; }
-    .event-row h3 { margin: 0 0 3px; }
-    .event-row p { margin: 0; color: var(--muted); font-size: .9rem; }
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    label { display: block; font-size: .88rem; font-weight: 700; margin-bottom: 6px; }
-    input, textarea, select { width: 100%; padding: 12px 13px; border-radius: 10px; border: 1px solid var(--line); background: #100e1b; color: var(--text); font: inherit; }
-    textarea { resize: vertical; min-height: 130px; }
-    .full { grid-column: 1 / -1; }
-    .note { color: var(--muted); font-size: .85rem; }
-    .status { color: var(--teal); min-height: 1.5em; }
-    footer { padding: 28px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
-    .footer-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
-    @media (max-width: 760px) {
-      .grid { grid-template-columns: 1fr; }
-      .news-list { grid-template-columns: 1fr; }
-      .section-head { align-items: start; flex-direction: column; }
-      nav { display: none; position: absolute; top: 72px; left: 0; right: 0; padding: 18px; background: #11101d; border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; }
-      nav.open { display: flex; }
-      .menu { display: block; }
-      .hero { padding: 66px 0 54px; }
-      .form-grid { grid-template-columns: 1fr; }
-      .full { grid-column: auto; }
-    }
+    :root{color-scheme:dark;--night:#090b13;--panel:#101522;--panel2:#151d2c;--ink:#f5f1e8;--soft:#b9c0c9;--teal:#79f3df;--violet:#bd9aff;--gold:#e8c886;--line:rgba(194,205,219,.16);--serif:Cinzel,Georgia,serif;--sans:Manrope,system-ui,sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:radial-gradient(ellipse at 50% -18%,rgba(67,78,132,.22),transparent 52%),var(--night);color:var(--ink);font-family:var(--sans);line-height:1.65}a{color:inherit}.wrap{width:min(1160px,calc(100% - 40px));margin-inline:auto}.skip{position:absolute;left:-9999px;top:8px;background:var(--teal);color:#08110f;padding:10px 16px;z-index:50}.skip:focus{left:12px}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(9,11,19,.86);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}.nav{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:13px;text-decoration:none}.brand img{width:48px;height:48px;filter:drop-shadow(0 0 12px rgba(121,243,223,.2))}.brand-name{font:700 .91rem/1.2 var(--serif);letter-spacing:.14em}.brand-name small{display:block;color:var(--gold);font:700 .58rem/1.5 var(--sans);letter-spacing:.28em}.nav-links{display:flex;align-items:center;gap:30px}.nav-links a{font-size:.84rem;font-weight:700;color:var(--soft);text-decoration:none;transition:color .2s}.nav-links a:hover,.nav-links a:focus-visible{color:var(--teal)}.nav-cta{border:1px solid rgba(121,243,223,.45);padding:9px 15px;border-radius:3px;color:var(--teal)!important}.menu{display:none;background:none;color:var(--ink);border:1px solid var(--line);padding:8px 12px;border-radius:3px;font:700 .85rem var(--sans)}
+    .hero{position:relative;isolation:isolate;min-height:630px;display:grid;align-items:center;overflow:hidden;border-bottom:1px solid var(--line);background:radial-gradient(ellipse at 72% 52%,rgba(88,74,146,.17),transparent 39%),linear-gradient(180deg,rgba(9,11,19,.1),var(--night))}.hero:before,.hero:after{position:absolute;z-index:-1;content:"";pointer-events:none}.hero:before{inset:0;background-image:radial-gradient(1px 1px at 13% 20%,rgba(232,200,134,.9) 50%,transparent 100%),radial-gradient(1px 1px at 42% 10%,rgba(121,243,223,.75) 50%,transparent 100%),radial-gradient(1px 1px at 87% 24%,rgba(189,154,255,.8) 50%,transparent 100%),radial-gradient(1px 1px at 8% 74%,rgba(189,154,255,.7) 50%,transparent 100%),radial-gradient(1px 1px at 58% 83%,rgba(232,200,134,.7) 50%,transparent 100%);background-size:420px 310px}.hero-grid{display:grid;grid-template-columns:.93fr 1.07fr;align-items:center;gap:20px;padding:58px 0 70px}.hero-copy{position:relative;z-index:2;padding:24px 0}.kicker,.section-kicker{color:var(--teal);font-size:.68rem;letter-spacing:.28em;font-weight:800;text-transform:uppercase}.kicker{display:flex;align-items:center;gap:12px}.kicker:before{content:"";height:1px;width:36px;background:var(--teal);box-shadow:0 0 10px var(--teal)}h1,h2,h3,p{margin-top:0}h1{font:700 clamp(3rem,7vw,6.35rem)/.98 var(--serif);letter-spacing:-.055em;margin:22px 0 21px}h1 span{display:block;color:var(--gold);text-shadow:0 0 28px rgba(232,200,134,.22)}.hero-copy>p{color:var(--soft);max-width:520px;font-size:1.03rem}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:11px 18px;border-radius:3px;border:1px solid var(--line);font:800 .78rem var(--sans);letter-spacing:.04em;text-decoration:none;transition:transform .2s,filter .2s,border-color .2s}.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}.btn.primary{background:linear-gradient(115deg,#b493e9,#8c76cb);color:#100d1a;border-color:transparent;box-shadow:0 6px 28px rgba(145,116,204,.25)}.btn.secondary{color:var(--ink);background:rgba(255,255,255,.025)}.hero-art{width:112%;max-width:720px;margin-left:-6%;filter:drop-shadow(0 16px 60px rgba(102,91,174,.2));animation:rise 1s ease-out both}.sigil{position:absolute;color:var(--violet);opacity:.7;text-shadow:0 0 12px currentColor;user-select:none}.sigil.one{right:9%;top:13%;font-size:1.4rem}.sigil.two{left:46%;bottom:15%;font-size:1rem;color:var(--teal)}.sigil.three{right:5%;bottom:28%;font-size:.8rem;color:var(--gold)}
+    .rune-rule{height:1px;background:linear-gradient(90deg,transparent,var(--teal),var(--violet),var(--gold),transparent);box-shadow:0 0 11px rgba(121,243,223,.3);opacity:.7}.intro-strip{padding:14px 0;border-bottom:1px solid var(--line);color:var(--soft);font-size:.71rem;text-transform:uppercase;letter-spacing:.16em}.intro-strip .wrap{display:flex;justify-content:center;gap:32px;flex-wrap:wrap}.intro-strip b{color:var(--gold);font-weight:800}
+    section.content{padding:84px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}.section-kicker{margin-bottom:7px}h2{font:600 clamp(1.85rem,4vw,3rem)/1.12 var(--serif);letter-spacing:-.025em;margin-bottom:0}.sub{margin:10px 0 0;color:var(--soft);max-width:650px;font-size:.92rem}.tag{display:inline-flex;padding:5px 10px;border:1px solid rgba(121,243,223,.25);color:var(--teal);font-size:.63rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{position:relative;border:1px solid var(--line);background:linear-gradient(145deg,rgba(21,29,44,.94),rgba(13,17,27,.96));padding:25px;overflow:hidden;transition:transform .25s,border-color .25s}.card:after{content:"";position:absolute;width:100px;height:100px;right:-62px;top:-64px;border:1px solid rgba(189,154,255,.25);transform:rotate(45deg);box-shadow:0 0 18px rgba(189,154,255,.12)}.card:hover{transform:translateY(-4px);border-color:rgba(121,243,223,.42)}.card-icon{width:48px;height:48px;display:grid;place-items:center;margin-bottom:20px;border:1px solid rgba(189,154,255,.34);color:var(--gold);font-size:1.35rem;background:rgba(189,154,255,.06)}.card h3,.news-card h3{font:600 1.22rem var(--serif);margin:13px 0 8px}.card p,.news-card p{color:var(--soft);font-size:.88rem;margin-bottom:18px}.date{font-size:.76rem;font-weight:800;color:var(--gold);letter-spacing:.05em}.events{border:1px solid var(--line);background:linear-gradient(140deg,rgba(21,29,44,.9),rgba(12,16,26,.94));padding:5px 26px}.event-row{display:flex;align-items:center;gap:18px;padding:19px 0}.event-row+.event-row{border-top:1px solid var(--line)}.datebox{width:60px;flex:0 0 60px;text-align:center;border:1px solid rgba(189,154,255,.35);padding:6px 4px;color:var(--gold);font-size:.64rem;letter-spacing:.1em}.datebox strong{display:block;font:600 1.15rem var(--serif)}.event-row h3{font:600 1.02rem var(--serif);margin:0 0 3px}.event-row p{margin:0;color:var(--soft);font-size:.82rem}.news-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.news-card{border:1px solid var(--line);padding:24px;background:linear-gradient(145deg,rgba(29,31,53,.95),rgba(13,17,27,.96))}.news-card.feature{min-height:268px;display:flex;flex-direction:column;justify-content:end;background:linear-gradient(0deg,rgba(9,11,19,.96),rgba(9,11,19,.25)),url('assets/hero-art.svg') center 40%/cover}.news-stack{display:grid;gap:16px}.contact-card{border:1px solid var(--line);padding:28px;background:linear-gradient(145deg,rgba(21,29,44,.94),rgba(13,17,27,.96))}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.full{grid-column:1/-1}label{display:block;margin-bottom:6px;font-size:.77rem;font-weight:800}input,textarea,select{width:100%;border:1px solid var(--line);background:#0c1019;color:var(--ink);padding:12px 13px;border-radius:2px;font:inherit}input:focus,textarea:focus,select:focus{outline:2px solid rgba(121,243,223,.6);outline-offset:1px}textarea{min-height:125px;resize:vertical}.note{font-size:.75rem;color:var(--soft);margin:12px 0 0}.status{color:var(--teal);min-height:1.5em;margin:7px 0 0;font-size:.83rem}footer{padding:25px 0;border-top:1px solid var(--line);color:var(--soft);font-size:.75rem}.footer-row{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}.footer-brand{display:flex;align-items:center;gap:9px}.footer-brand img{width:30px;height:30px}.footer-brand strong{color:var(--ink);font:700 .72rem var(--serif);letter-spacing:.12em}
+    @keyframes rise{from{opacity:.5;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+    @media(max-width:820px){.hero{min-height:0}.hero-grid{grid-template-columns:1fr;gap:0;padding:65px 0 42px}.hero-copy{padding:0}.hero-art{width:min(100%,650px);margin:-8px auto -20px}.cards{grid-template-columns:1fr 1fr}.cards .card:last-child{grid-column:1/-1}}
+    @media(max-width:620px){.wrap{width:min(100% - 30px,1160px)}.nav{min-height:68px}.brand img{width:42px;height:42px}.menu{display:block}.nav-links{display:none;position:absolute;top:68px;left:0;right:0;padding:17px 20px 20px;background:rgba(9,11,19,.98);border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch;gap:0}.nav-links.open{display:flex}.nav-links a{padding:12px 4px}.nav-links .nav-cta{text-align:center;margin-top:8px}.hero-grid{padding:55px 0 34px}h1{font-size:clamp(2.8rem,16vw,5rem)}.hero-copy>p{font-size:.94rem}.intro-strip .wrap{gap:8px 18px;font-size:.61rem}section.content{padding:64px 0}.section-head{align-items:start;flex-direction:column}.cards{grid-template-columns:1fr}.cards .card:last-child{grid-column:auto}.news-grid{grid-template-columns:1fr}.news-card.feature{min-height:230px}.form-grid{grid-template-columns:1fr}.full{grid-column:auto}.events{padding-inline:17px}.event-row{gap:13px}}
+    /* Sci-fi gaming visual direction */
+    :root{color-scheme:dark;--night:#071321;--panel:#0c1b2b;--panel2:#10253a;--ink:#eefaff;--soft:#a9c0d2;--teal:#55e7ff;--violet:#a783ff;--gold:#ffd36e;--line:rgba(112,197,232,.2);--serif:"Orbitron",system-ui,sans-serif;--sans:"Space Grotesk",system-ui,sans-serif}
+    body{font:16px/1.65 var(--sans);background-color:var(--night);background-image:radial-gradient(ellipse at 50% -20%,rgba(53,117,185,.25),transparent 55%),radial-gradient(1px 1px at 12% 19%,rgba(240,252,255,.65) 50%,transparent 100%),radial-gradient(1px 1px at 82% 31%,rgba(85,231,255,.7) 50%,transparent 100%),linear-gradient(rgba(7,19,33,.89),rgba(7,19,33,.97)),linear-gradient(rgba(75,153,194,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(75,153,194,.035) 1px,transparent 1px);background-size:auto,auto,auto,auto,42px 42px,42px 42px}
+    .topbar{background:rgba(5,15,27,.86);border-bottom:1px solid rgba(85,231,255,.3);box-shadow:0 5px 28px rgba(25,147,209,.08)}.brand-name{font:700 14px/1.35 var(--serif);letter-spacing:.08em;color:var(--ink);text-shadow:none}.brand-name small{font:600 9px/1.7 var(--sans);letter-spacing:.19em;color:var(--teal)}.brand img{filter:drop-shadow(0 0 12px rgba(85,231,255,.38))}.nav-links a{font:600 .83rem var(--sans);color:var(--soft)}.nav-links a:hover,.nav-links a:focus-visible{color:var(--teal);text-shadow:0 0 15px rgba(85,231,255,.65)}.nav-cta{border:1px solid rgba(85,231,255,.45);border-radius:8px;color:var(--teal)!important;background:rgba(85,231,255,.05)}.menu{font:600 .9rem var(--sans);border:1px solid rgba(85,231,255,.4);border-radius:8px}
+    .hero{min-height:640px;border-bottom:1px solid rgba(85,231,255,.25);background:radial-gradient(ellipse at 74% 50%,rgba(93,74,188,.2),transparent 43%),linear-gradient(180deg,rgba(14,38,62,.22),var(--night))}.hero:before{background-size:380px 300px}.hero:after{inset:auto 0 0;height:120px;background:linear-gradient(transparent,rgba(5,15,27,.54))}.hero-art{filter:drop-shadow(0 15px 54px rgba(64,151,231,.2))}.sigil{color:var(--teal);text-shadow:0 0 18px currentColor}
+    .brand-name small:before{content:""}.kicker,.section-kicker{font:700 .69rem var(--sans);letter-spacing:.2em;color:var(--teal)}.kicker:before{height:1px;width:42px;box-shadow:0 0 12px var(--teal)}h1{font:700 clamp(2.35rem,5.4vw,4.5rem)/1.08 var(--serif);letter-spacing:-.035em;margin:22px 0;color:#f4fbff;text-shadow:0 0 24px rgba(85,231,255,.24)}h1 span{color:var(--teal);text-shadow:0 0 24px rgba(85,231,255,.42)}.hero-copy>p{font:1.04rem/1.65 var(--sans);color:#bdd1df}.btn{font:700 .82rem var(--sans);letter-spacing:.01em;border:1px solid rgba(115,198,233,.3);border-radius:9px;box-shadow:none}.btn:hover{box-shadow:0 0 20px rgba(85,231,255,.18)}.btn.primary{background:linear-gradient(115deg,#55e7ff,#8daaff);color:#061522;border-color:transparent;box-shadow:0 8px 24px rgba(49,183,230,.18)}.btn.secondary{border-color:rgba(167,131,255,.45);background:rgba(167,131,255,.07);color:var(--ink);box-shadow:none}
+    .rune-rule{height:1px;opacity:1;background:linear-gradient(90deg,transparent,#55e7ff,#a783ff,transparent);box-shadow:0 0 14px rgba(85,231,255,.6)}.intro-strip{font:600 .75rem var(--sans);border-bottom:1px solid var(--line);letter-spacing:.13em;color:#c2d7e6}.intro-strip b{color:var(--teal)}section.content{padding:78px 0}.section-head{margin-bottom:28px}h2{font:600 clamp(1.45rem,2.5vw,2rem)/1.35 var(--serif);color:#effaff;text-shadow:0 0 18px rgba(85,231,255,.12);letter-spacing:-.02em}.sub{font:1rem/1.55 var(--sans);color:var(--soft)}.tag{font:700 .68rem var(--sans);letter-spacing:.1em;border:1px solid rgba(85,231,255,.3);color:var(--teal);padding:5px 10px;border-radius:999px;background:rgba(85,231,255,.045)}
+    .card,.news-card,.events,.contact-card{border:1px solid rgba(111,187,220,.19);border-radius:15px;background:linear-gradient(145deg,rgba(15,34,53,.9),rgba(8,22,37,.94));box-shadow:0 14px 35px rgba(0,0,0,.18)}.card:after{width:82px;height:82px;border-radius:50%;border:1px solid rgba(85,231,255,.22);box-shadow:0 0 26px rgba(85,231,255,.08)}.card:hover{transform:translateY(-4px);border-color:rgba(85,231,255,.48);box-shadow:0 15px 38px rgba(18,113,155,.16)}.card-icon{border:1px solid rgba(167,131,255,.3);border-radius:12px;background:rgba(167,131,255,.08);color:var(--teal)}.card h3,.news-card h3,.event-row h3{font:600 1.06rem/1.45 var(--sans);color:#f3faff}.card p,.news-card p,.event-row p{font: .93rem/1.55 var(--sans);color:var(--soft)}.date{font:700 .8rem var(--sans);color:var(--gold)}.datebox{border:1px solid rgba(167,131,255,.35);border-radius:9px;color:var(--gold);font:.72rem var(--sans);background:rgba(167,131,255,.06)}.datebox strong{font:700 1.05rem var(--serif);color:var(--gold)}.news-card.feature{border-radius:15px;background:linear-gradient(0deg,rgba(7,19,33,.93),rgba(7,19,33,.15)),url('assets/hero-art.svg') center 40%/cover}.news-stack{gap:16px}.contact-card{padding:28px}.contact-card label{font:600 .88rem var(--sans)}input,textarea,select{font:1rem var(--sans);border:1px solid rgba(111,187,220,.27);border-radius:8px;background:rgba(5,15,27,.86)}input:focus,textarea:focus,select:focus{outline:2px solid rgba(85,231,255,.7)}.note,.status{font:.84rem/1.5 var(--sans)}footer{border-top:1px solid rgba(85,231,255,.24);font:.84rem var(--sans)}.footer-brand strong{font:700 .74rem var(--serif);letter-spacing:.05em;color:var(--ink)}
+    .tcg-grid{grid-template-columns:repeat(5,1fr);gap:14px}.tcg-card{min-height:225px;padding:19px 16px;border:1px solid color-mix(in srgb,var(--tcg) 60%,transparent);border-radius:15px;background:linear-gradient(155deg,color-mix(in srgb,var(--tcg) 12%,#102239),rgba(8,22,37,.95) 72%);box-shadow:0 12px 30px rgba(0,0,0,.18);transition:transform .2s,border-color .2s}.tcg-card:hover{transform:translateY(-4px);border-color:var(--tcg);box-shadow:0 15px 34px color-mix(in srgb,var(--tcg) 14%,transparent)}.tcg-card h3{font:600 1rem/1.4 var(--sans);color:#f3faff;margin:14px 0 8px}.tcg-card p{font:.9rem/1.5 var(--sans);color:var(--soft)}.tcg-stamp{width:42px;height:42px;border:1px solid color-mix(in srgb,var(--tcg) 70%,transparent);border-radius:12px;color:var(--tcg);font:600 1rem var(--serif);background:color-mix(in srgb,var(--tcg) 8%,transparent);box-shadow:0 0 22px color-mix(in srgb,var(--tcg) 15%,transparent)}.tcg-type{font:600 .68rem var(--sans);color:var(--tcg);letter-spacing:.1em}.tcg-note{font:.8rem/1.5 var(--sans);color:#9db3c5}
+    .food-grid{grid-template-columns:repeat(4,1fr);gap:17px}.food-card{border:1px solid rgba(111,187,220,.2);border-radius:15px;background:linear-gradient(150deg,rgba(15,34,53,.94),rgba(8,22,37,.96));box-shadow:0 12px 30px rgba(0,0,0,.2);transition:transform .2s,border-color .2s}.food-card:hover{transform:translateY(-4px);border-color:rgba(85,231,255,.48)}.food-card img{height:165px;image-rendering:auto;border-bottom:1px solid rgba(85,231,255,.2);background:#0b192a}.food-info{padding:15px 17px}.food-info h3{font:600 1rem/1.45 var(--sans)}.food-price{font:700 1.25rem var(--sans);color:var(--gold)}.food-info p{font:.86rem var(--sans)}.memberships{gap:17px}.member-card{border:1px solid color-mix(in srgb,var(--tier) 55%,transparent);border-radius:16px;background:linear-gradient(160deg,color-mix(in srgb,var(--tier) 10%,#102239),rgba(7,19,33,.97) 72%);box-shadow:0 15px 34px rgba(0,0,0,.24)}.member-card img{height:190px;image-rendering:auto;border-bottom:1px solid color-mix(in srgb,var(--tier) 55%,transparent)}.member-info{padding:20px}.member-kicker{font:700 .69rem var(--sans);letter-spacing:.12em}.member-card h3{font:600 1.05rem/1.45 var(--sans)}.member-price{font:700 1.8rem var(--serif);color:var(--gold);text-shadow:0 0 14px rgba(255,211,110,.16)}.member-perks{font:.93rem/1.5 var(--sans);color:#bed0df}.member-perks li{padding:5px 0}.member-fine{font:.8rem/1.5 var(--sans);color:#9db3c5}.fencing-panel{border:1px solid rgba(85,231,255,.32);border-radius:15px;background:linear-gradient(110deg,rgba(16,43,65,.92),rgba(22,19,55,.92));box-shadow:0 14px 34px rgba(0,0,0,.2)}.fencing-mark{border:1px solid rgba(255,211,110,.48);border-radius:13px;color:var(--gold);font:1.8rem var(--sans);text-shadow:0 0 14px rgba(255,211,110,.4)}.fencing-panel h3{font:600 1.05rem/1.45 var(--sans)}.fencing-panel p{font:.95rem/1.5 var(--sans)}
+    @media(max-width:1000px){.tcg-grid{grid-template-columns:repeat(3,1fr)}.food-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:900px){.nav-links{background:rgba(5,15,27,.98);border-bottom:1px solid rgba(85,231,255,.3)}}
+    @media(max-width:820px){.memberships{grid-template-columns:1fr 1fr}.member-card:last-child{grid-column:1/-1}.fencing-panel{grid-template-columns:auto 1fr}.fencing-panel .btn{grid-column:1/-1;justify-self:start}}
+    @media(max-width:620px){.hero-grid{padding:56px 0 35px}h1{font-size:clamp(2rem,8vw,3rem);line-height:1.12;text-shadow:0 0 18px rgba(85,231,255,.2)}.hero-copy>p{font-size:1rem}.kicker,.section-kicker{font-size:.68rem}.intro-strip .wrap{font-size:.65rem}h2{font-size:1.35rem}.tcg-grid{grid-template-columns:1fr 1fr}.tcg-card{min-height:205px;padding:15px 12px}.tcg-card h3{font-size:.84rem}.tcg-card p{font-size:.82rem}.tcg-stamp{width:36px;height:36px;font-size:.9rem}.tcg-type{font-size:.61rem}.food-grid{grid-template-columns:1fr 1fr;gap:11px}.food-card img{height:125px}.food-info{padding:12px}.food-info h3{font-size:.84rem}.food-price{font-size:1.15rem}.food-info p{font-size:.78rem}.memberships{grid-template-columns:1fr}.member-card:last-child{grid-column:auto}.member-card img{height:175px}.member-info{padding:16px}.member-card h3{font-size:1rem}.member-perks{font-size:.9rem}.fencing-panel{grid-template-columns:1fr;gap:12px}.fencing-panel .btn{grid-column:auto}.fencing-panel h3{font-size:1rem}}
   </style>
 </head>
 <body>
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="#home" aria-label="Feasted Gaming home"><span class="crest">✦</span><span>FEASTED GAMING</span></a>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar"><div class="wrap nav">
+    <a class="brand" href="#home" aria-label="Feasted Gaming home"><img src="assets/crest.svg" alt=""><span class="brand-name">FEASTED GAMING<small>SCI-FI GAMING NETWORK</small></span></a>
     <button class="menu" id="menuButton" aria-expanded="false" aria-controls="mainNav">Menu ☰</button>
-    <nav id="mainNav" aria-label="Main navigation">
-      <a href="#tournaments">Tournaments</a><a href="#events">Events</a><a href="#news">News</a><a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-  <section class="hero" id="home">
-    <div class="wrap">
-      <div class="eyebrow">✧ Your next legend begins here ✧</div>
-      <h1>ENTER THE<br><span>ARENA.</span></h1>
-      <p>Where legends rise, rivals clash, and champions are forged. Find your next tournament, meet your party, and become part of the Feasted Gaming community.</p>
-      <div class="actions"><a class="btn primary" href="#tournaments">Explore tournaments ↗</a><a class="btn secondary" href="#events">View event calendar</a></div>
-    </div>
-  </section>
-  <div class="rune-line"></div>
-
-  <section id="tournaments">
-    <div class="wrap">
-      <div class="section-head"><div><div class="eyebrow">Choose your challenge</div><h2>Featured Tournaments</h2><p class="sub">Replace these sample listings with your real games, dates, rules, and prizes.</p></div><span class="tag">THE GATES ARE OPEN</span></div>
-      <div class="grid">
-        <article class="card"><div class="symbol">⚔️</div><span class="tag">FIGHTING GAMES</span><h3>Champions' Clash</h3><p>Bring your best fighter and test your skills in a bracket-style showdown.</p><div class="date">Date to be announced</div></article>
-        <article class="card"><div class="symbol">🐉</div><span class="tag">COMMUNITY EVENT</span><h3>Guild Night</h3><p>Team up, meet other players, and take on friendly challenges together.</p><div class="date">Date to be announced</div></article>
-        <article class="card"><div class="symbol">🏆</div><span class="tag">SPECIAL EVENT</span><h3>Feasted Grand Arena</h3><p>A featured competition for the community. Details and entry rules coming soon.</p><div class="date">Date to be announced</div></article>
+    <nav class="nav-links" id="mainNav" aria-label="Main navigation"><a href="#tcg">Card games</a><a href="#tournaments">Tournaments</a><a href="#food">Snacks</a><a href="#memberships">Memberships</a><a href="#events">Events</a><a href="#news">News</a><a class="nav-cta" href="#contact">Join the party ↗</a></nav>
+  </div></header>
+  <main id="main">
+    <section class="hero" id="home"><span class="sigil one" aria-hidden="true">✧</span><span class="sigil two" aria-hidden="true">✦</span><span class="sigil three" aria-hidden="true">✧</span>
+      <div class="wrap hero-grid"><div class="hero-copy"><div class="kicker">Your next game night, upgraded</div><h1>ENTER THE<span>NEXUS.</span></h1><p>Connect with players, find your next card game, and join friendly tournaments in a world built for the whole gaming community.</p><div class="actions"><a class="btn primary" href="#tcg">Explore the card games&nbsp; ↓</a><a class="btn secondary" href="#events">See upcoming events</a></div></div>
+        <img class="hero-art" src="assets/hero-art.svg" alt="A futuristic starship crossing an electric-blue planet above an illuminated alien city" width="900" height="650">
       </div>
-    </div>
-  </section>
-
-  <section id="events">
-    <div class="wrap">
-      <div class="section-head"><div><div class="eyebrow">Mark your scroll</div><h2>Upcoming Events</h2><p class="sub">A starter calendar. Add confirmed dates before sharing events publicly.</p></div></div>
-      <div class="card">
-        <div class="event-row"><div class="datebox"><strong>--</strong><span>TBD</span></div><div><h3>Community Tournament</h3><p>Date and registration details coming soon.</p></div></div>
-        <div class="rune-line" style="margin:18px 0"></div>
-        <div class="event-row"><div class="datebox"><strong>--</strong><span>TBD</span></div><div><h3>Open Play Night</h3><p>Bring your friends and join the next community session.</p></div></div>
-        <div class="rune-line" style="margin:18px 0"></div>
-        <div class="event-row"><div class="datebox"><strong>--</strong><span>TBD</span></div><div><h3>Season Finals</h3><p>Finals details will be posted once the schedule is confirmed.</p></div></div>
+    </section>
+    <div class="rune-rule"></div><div class="intro-strip"><div class="wrap"><span><b>✦</b> EXPLORE NEW WORLDS</span><span><b>◆</b> BUILD YOUR DECK</span><span><b>✦</b> FIND YOUR CREW</span></div></div>
+    <section class="content" id="tcg"><div class="wrap"><div class="section-head"><div><div class="section-kicker">Choose your game</div><h2>Trading Card Game Lobbies</h2><p class="sub">Bring your favorite cards, meet other players, and find a table for your next match.</p></div><span class="tag">GAME SELECT</span></div>
+      <div class="tcg-grid">
+        <article class="tcg-card" style="--tcg:#e8b94b"><div><div class="tcg-stamp" aria-hidden="true">M</div><h3>Magic: The Gathering</h3><p>Build a deck. Cast your spell. Make your play.</p></div><div class="tcg-type">Strategy · Fantasy</div></article>
+        <article class="tcg-card" style="--tcg:#ffe347"><div><div class="tcg-stamp" aria-hidden="true">P</div><h3>Pokémon</h3><p>Choose your team and battle for the win.</p></div><div class="tcg-type">Collect · Battle</div></article>
+        <article class="tcg-card" style="--tcg:#ee514a"><div><div class="tcg-stamp" aria-hidden="true">航</div><h3>ONE PIECE CARD GAME</h3><p>Gather your crew and set sail for a match.</p></div><div class="tcg-type">Crew · Adventure</div></article>
+        <article class="tcg-card" style="--tcg:#bd82ff"><div><div class="tcg-stamp" aria-hidden="true">遊</div><h3>Yu-Gi-Oh!</h3><p>Bring your best combo to the duel arena.</p></div><div class="tcg-type">Duel · Strategy</div></article>
+        <article class="tcg-card" style="--tcg:#69d4ff"><div><div class="tcg-stamp" aria-hidden="true">✦</div><h3>Disney Lorcana</h3><p>Summon your team and write a new story.</p></div><div class="tcg-type">Stories · Strategy</div></article>
+      </div><p class="tcg-note">Game names are trademarks of their respective owners. Feasted Gaming is an independent community and is not affiliated with or endorsed by the publishers.</p>
+    </div></section>
+    <section class="content" id="tournaments"><div class="wrap"><div class="section-head"><div><div class="section-kicker">Choose your challenge</div><h2>Featured Tournaments</h2><p class="sub">The tournament queue is loading. Check back for confirmed games, dates, and entry details.</p></div><span class="tag">MATCHMAKING SOON</span></div>
+      <div class="cards"><article class="card"><div class="card-icon" aria-hidden="true">⚔</div><span class="tag">FIGHTING GAMES</span><h3>Champions' Clash</h3><p>Bring your best fighter and test your skills in a bracket-style showdown.</p><div class="date">DATE TO BE ANNOUNCED</div></article><article class="card"><div class="card-icon" aria-hidden="true">✧</div><span class="tag">COMMUNITY EVENT</span><h3>Co-op Night</h3><p>Meet fellow players, form a party, and take on friendly challenges together.</p><div class="date">DATE TO BE ANNOUNCED</div></article><article class="card"><div class="card-icon" aria-hidden="true">♜</div><span class="tag">SPECIAL EVENT</span><h3>Nebula Open</h3><p>A featured competition for the community. Details and entry rules coming soon.</p><div class="date">DATE TO BE ANNOUNCED</div></article></div>
+    </div></section>
+    <section class="content" id="food"><div class="wrap"><div class="section-head"><div><div class="section-kicker">Power-up menu</div><h2>Game Night Snacks</h2><p class="sub">Grab a bite and get back in the game.</p></div><span class="tag">FOOD & DRINKS</span></div>
+      <div class="food-grid">
+        <article class="food-card"><img src="assets/food-pizza.svg" alt="Illustrated pepperoni pizza"><div class="food-info"><h3>Pizza</h3><div class="food-price">$10.00</div></div></article>
+        <article class="food-card"><img src="assets/food-wings.svg" alt="Illustrated plate of saucy chicken wings"><div class="food-info"><h3>Wings · 6 pieces</h3><div class="food-price">$8.00</div></div></article>
+        <article class="food-card"><img src="assets/food-wings.svg" alt="Illustrated plate of saucy chicken wings"><div class="food-info"><h3>Wings · 12 pieces</h3><div class="food-price">$15.00</div></div></article>
+        <article class="food-card"><img src="assets/food-pizza-rolls.svg" alt="Illustrated pizza rolls with dipping sauce"><div class="food-info"><h3>Pizza rolls · 7 pieces</h3><div class="food-price">$8.00</div></div></article>
+        <article class="food-card"><img src="assets/drink-water.svg" alt="Illustrated bottle of water"><div class="food-info"><h3>Water</h3><div class="food-price">$1.00</div></div></article>
+        <article class="food-card"><img src="assets/drink-soda.svg" alt="Illustrated soda can"><div class="food-info"><h3>Soda</h3><div class="food-price">$1.50</div></div></article>
+        <article class="food-card"><img src="assets/drink-energy.svg" alt="Illustrated energy drink can"><div class="food-info"><h3>Monster</h3><div class="food-price">$3.00</div><p>Energy drink</p></div></article>
       </div>
-    </div>
-  </section>
-
-  <section id="news">
-    <div class="wrap">
-      <div class="section-head"><div><div class="eyebrow">Dispatches from the realm</div><h2>News & Announcements</h2><p class="sub">Keep players updated with tournament news, rule changes, and community highlights.</p></div></div>
-      <div class="news-list">
-        <article class="card featured"><span class="tag">WELCOME</span><h3>The Feasted Gaming realm is opening</h3><p>We're building a place for players to compete, connect, and create unforgettable gaming moments. Follow along for upcoming events.</p></article>
-        <div class="small-news">
-          <article class="card"><span class="tag">ANNOUNCEMENT</span><h3>More tournaments soon</h3><p>Game titles, formats, entry rules, and schedules will be announced here.</p></article>
-          <article class="card"><span class="tag">COMMUNITY</span><h3>Help shape the arena</h3><p>Send us your game suggestions and ideas for future events using the contact form below.</p></article>
-        </div>
+    </div></section>
+    <section class="content" id="memberships"><div class="wrap"><div class="section-head"><div><div class="section-kicker">Choose your player level</div><h2>Membership Tiers</h2><p class="sub">Pick the pass that fits your game night. Tournament and pack details can be confirmed with the crew.</p></div><span class="tag">PLAYER LEVEL UP</span></div>
+      <div class="memberships">
+        <article class="member-card" style="--tier:#55e7ff"><img src="assets/tier-three-rate.svg" alt="A holographic starter deck suspended inside a blue energy field"><div class="member-info"><div class="member-kicker">Tier 1 · Starter pass</div><h3>Three Rate Deck</h3><div class="member-price">$10</div><ul class="member-perks"><li>One free $5 pack</li><li>One water</li><li>One entry to the Friday night small tournament</li></ul><a class="btn secondary" href="#contact">Ask about this tier</a></div></article>
+        <article class="member-card" style="--tier:#ffd36e"><img src="assets/tier-getting-good.svg" alt="A gamer standing before a glowing holographic tournament display"><div class="member-info"><div class="member-kicker">Tier 2 · Level up</div><h3>Getting Good Scrub</h3><div class="member-price">$20</div><ul class="member-perks"><li>One free $5 pack</li><li>One snack from the menu</li><li>One free entry to a small local tournament</li></ul><a class="btn secondary" href="#contact">Ask about this tier</a></div></article>
+        <article class="member-card" style="--tier:#a783ff"><img src="assets/tier-planewalker.svg" alt="A mysterious traveler facing a luminous interdimensional portal"><div class="member-info"><div class="member-kicker">Tier 3 · Ultimate pass</div><h3>Planewalker</h3><div class="member-price">$35</div><ul class="member-perks"><li>One free $5 pack</li><li>Choose two free tournament entries, or one free entry to a TCG sneak peek</li></ul><a class="btn secondary" href="#contact">Ask about this tier</a></div></article>
       </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="wrap">
-      <div class="section-head"><div><div class="eyebrow">Send a raven</div><h2>Contact the Guild</h2><p class="sub">Questions about events, tournaments, or partnering with Feasted Gaming? Send a message.</p></div></div>
-      <div class="card">
-        <form id="contactForm">
-          <div class="form-grid">
-            <div><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required placeholder="Player name"></div>
-            <div><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
-            <div class="full"><label for="topic">What is this about?</label><select id="topic" name="topic"><option>Tournament question</option><option>Event suggestion</option><option>Partnership</option><option>Other</option></select></div>
-            <div class="full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="Write your message here..."></textarea></div>
-            <div class="full"><button class="btn primary" type="submit">Prepare message ↗</button><p class="note">Starter demo: this opens your email app. It does not send or store messages on this website until you connect a form service.</p><p class="status" id="formStatus" role="status"></p></div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-</main>
-
-<footer><div class="wrap footer-row"><div>✦ <strong>FEASTED GAMING</strong> — Forge your legend.</div><div>© <span id="year"></span> Feasted Gaming · Community first.</div></div></footer>
-<script>
-  const menuButton = document.getElementById('menuButton');
-  const nav = document.getElementById('mainNav');
-  menuButton.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    menuButton.setAttribute('aria-expanded', String(open));
-  });
-  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-    nav.classList.remove('open');
-    menuButton.setAttribute('aria-expanded', 'false');
-  }));
-  document.getElementById('year').textContent = new Date().getFullYear();
-  document.getElementById('contactForm').addEventListener('submit', event => {
-    event.preventDefault();
-    const data = new FormData(event.target);
-    const recipient = 'YOUR_EMAIL_HERE';
-    const subject = encodeURIComponent('Feasted Gaming: ' + data.get('topic'));
-    const body = encodeURIComponent(
-      'Name: ' + data.get('name') + '\\nEmail: ' + data.get('email') +
-      '\\nTopic: ' + data.get('topic') + '\\n\\n' + data.get('message')
-    );
-    if (recipient === 'YOUR_EMAIL_HERE') {
-      document.getElementById('formStatus').textContent =
-        'Demo only: open index.html in a text editor and replace YOUR_EMAIL_HERE with your email address in the script.';
-      return;
-    }
-    window.location.href = 'mailto:' + recipient + '?subject=' + subject + '&body=' + body;
-  });
-</script>
+    </div></section>
+    <section class="content" id="fencing"><div class="wrap"><div class="fencing-panel"><div class="fencing-mark" aria-hidden="true">⚔</div><div><h3>Saber Fencing</h3><p>Curious about saber fencing at Feasted Gaming? Ask us for more information.</p></div><a class="btn primary" href="#contact">Ask for details&nbsp; ↗</a></div></div></section>
+    <section class="content" id="events"><div class="wrap"><div class="section-head"><div><div class="section-kicker">Save your slot</div><h2>Upcoming Events</h2><p class="sub">A starter calendar. Add confirmed dates before sharing events publicly.</p></div></div>
+      <div class="events"><div class="event-row"><div class="datebox"><strong>--</strong>TBD</div><div><h3>Community Tournament</h3><p>Date and registration details coming soon.</p></div></div><div class="event-row"><div class="datebox"><strong>--</strong>TBD</div><div><h3>Open Play Night</h3><p>Bring your friends and join the next community session.</p></div></div><div class="event-row"><div class="datebox"><strong>--</strong>TBD</div><div><h3>Season Finals</h3><p>Finals details will be posted once the schedule is confirmed.</p></div></div></div>
+    </div></section>
+    <section class="content" id="news"><div class="wrap"><div class="section-head"><div><div class="section-kicker">Signals from the community</div><h2>News & Announcements</h2><p class="sub">Tournament news, rule changes, and community highlights belong here.</p></div></div>
+      <div class="news-grid"><article class="news-card feature"><span class="tag">WELCOME</span><h3>Welcome to the Nexus</h3><p>We're building a place for players and collectors to compete, connect, and create unforgettable game night memories.</p></article><div class="news-stack"><article class="news-card"><span class="tag">ANNOUNCEMENT</span><h3>More meetups soon</h3><p>Game nights, formats, entry rules, and schedules will be announced here.</p></article><article class="news-card"><span class="tag">COMMUNITY</span><h3>Help pick the next game</h3><p>Send us your favorite game and ideas for future events using the contact form below.</p></article></div></div>
+    </div></section>
+    <section class="content" id="contact"><div class="wrap"><div class="section-head"><div><div class="section-kicker">Get in the game</div><h2>Contact the Crew</h2><p class="sub">Questions about events, tournaments, or joining the Feasted Gaming community? Send a message.</p></div></div>
+      <div class="contact-card"><form id="contactForm"><div class="form-grid"><div><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required placeholder="Player name"></div><div><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="full"><label for="topic">What is this about?</label><select id="topic" name="topic"><option>Tournament question</option><option>Event suggestion</option><option>Partnership</option><option>Other</option></select></div><div class="full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="Write your message here..."></textarea></div><div class="full"><button class="btn primary" type="submit">Prepare message&nbsp; ↗</button><p class="note">This starter form opens your email app. It does not send or store messages on this website.</p><p class="status" id="formStatus" role="status" aria-live="polite"></p></div></div></form></div>
+    </div></section>
+  </main>
+  <footer><div class="wrap footer-row"><div class="footer-brand"><img src="assets/crest.svg" alt=""><strong>FEASTED GAMING</strong><span>— Play beyond the ordinary.</span></div><div>© <span id="year"></span> Feasted Gaming · Community first.</div></div></footer>
+  <script>
+    const menuButton=document.getElementById('menuButton');
+    const nav=document.getElementById('mainNav');
+    menuButton.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));});
+    nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');}));
+    document.getElementById('year').textContent=new Date().getFullYear();
+    document.getElementById('contactForm').addEventListener('submit',event=>{
+      event.preventDefault();const data=new FormData(event.target);const recipient='YOUR_EMAIL_HERE';
+      const subject=encodeURIComponent('Feasted Gaming: '+data.get('topic'));
+      const body=encodeURIComponent('Name: '+data.get('name')+'\nEmail: '+data.get('email')+'\nTopic: '+data.get('topic')+'\n\n'+data.get('message'));
+      if(recipient==='YOUR_EMAIL_HERE'){document.getElementById('formStatus').textContent='Demo only: replace YOUR_EMAIL_HERE in the page script with your email address to activate this link.';return;}
+      window.location.href='mailto:'+recipient+'?subject='+subject+'&body='+body;
+    });
+  </script>
 </body>
 </html>
+
