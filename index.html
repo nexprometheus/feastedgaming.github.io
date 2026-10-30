@@ -88,7 +88,7 @@
       <div class="news-grid"><article class="news-card feature"><span class="tag">WELCOME</span><h3>Welcome to the Nexus</h3><p>We're building a place for players and collectors to compete, connect, and create unforgettable game night memories.</p></article><div class="news-stack"><article class="news-card"><span class="tag">ANNOUNCEMENT</span><h3>More meetups soon</h3><p>Game nights, formats, entry rules, and schedules will be announced here.</p></article><article class="news-card"><span class="tag">COMMUNITY</span><h3>Help pick the next game</h3><p>Send us your favorite game and ideas for future events using the contact form below.</p></article></div></div>
     </div></section>
     <section class="content" id="contact"><div class="wrap"><div class="section-head"><div><div class="section-kicker">Get in the game</div><h2>Contact the Crew</h2><p class="sub">Questions about events, tournaments, or joining the Feasted Gaming community? Send a message.</p></div></div>
-      <div class="contact-card"><form id="contactForm"><div class="form-grid"><div><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required placeholder="Player name"></div><div><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="full"><label for="topic">What is this about?</label><select id="topic" name="topic"><option>Tournament question</option><option>Event suggestion</option><option>Partnership</option><option>Other</option></select></div><div class="full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="Write your message here..."></textarea></div><div class="full"><button class="btn primary" type="submit">Prepare message&nbsp; ↗</button><p class="note">This starter form opens your email app. It does not send or store messages on this website.</p><p class="status" id="formStatus" role="status" aria-live="polite"></p></div></div></form></div>
+      <div class="contact-card"><form id="contactForm"><div class="form-grid"><div><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required placeholder="Player name"></div><div><label for="email">Email address</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div><div class="full"><label for="topic">What is this about?</label><select id="topic" name="topic"><option>Tournament question</option><option>Event suggestion</option><option>Partnership</option><option>Other</option></select></div><div class="full"><label for="message">Message</label><textarea id="message" name="message" required placeholder="Write your message here..."></textarea></div><div class="full"><button class="btn primary" type="submit">Send message&nbsp; ↗</button><p class="note">Your name, email, topic, and message are sent through <a href="https://formsubmit.co/" target="_blank" rel="noopener noreferrer">FormSubmit</a> to Feasted Gaming. FormSubmit emails the inbox once to activate delivery; confirm that message before expecting submissions.</p><p class="status" id="formStatus" role="status" aria-live="polite"></p></div></div></form></div>
     </div></section>
   </main>
   <footer><div class="wrap footer-row"><div class="footer-brand"><img src="assets/crest.svg" alt=""><strong>FEASTED GAMING</strong><span>— Play beyond the ordinary.</span></div><div>© <span id="year"></span> Feasted Gaming · Community first.</div></div></footer>
@@ -98,12 +98,32 @@
     menuButton.addEventListener('click',()=>{const open=nav.classList.toggle('open');menuButton.setAttribute('aria-expanded',String(open));});
     nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',()=>{nav.classList.remove('open');menuButton.setAttribute('aria-expanded','false');}));
     document.getElementById('year').textContent=new Date().getFullYear();
-    document.getElementById('contactForm').addEventListener('submit',event=>{
-      event.preventDefault();const data=new FormData(event.target);const recipient='YOUR_EMAIL_HERE';
-      const subject=encodeURIComponent('Feasted Gaming: '+data.get('topic'));
-      const body=encodeURIComponent('Name: '+data.get('name')+'\nEmail: '+data.get('email')+'\nTopic: '+data.get('topic')+'\n\n'+data.get('message'));
-      if(recipient==='YOUR_EMAIL_HERE'){document.getElementById('formStatus').textContent='Demo only: replace YOUR_EMAIL_HERE in the page script with your email address to activate this link.';return;}
-      window.location.href='mailto:'+recipient+'?subject='+subject+'&body='+body;
+    const contactForm=document.getElementById('contactForm');
+    const formStatus=document.getElementById('formStatus');
+    const sendButton=contactForm.querySelector('button[type="submit"]');
+    contactForm.addEventListener('submit',async event=>{
+      event.preventDefault();
+      sendButton.disabled=true;
+      sendButton.textContent='Sending…';
+      formStatus.textContent='';
+      const data=Object.fromEntries(new FormData(contactForm).entries());
+      data._subject='Feasted Gaming: '+data.topic;
+      try{
+        const response=await fetch('https://formsubmit.co/ajax/luna032191@gmail.com',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body:JSON.stringify(data)
+        });
+        const result=await response.json();
+        if(!response.ok||result.success===false||result.success==='false')throw new Error('Submission failed');
+        formStatus.textContent='Message sent. Thanks for reaching out to Feasted Gaming!';
+        contactForm.reset();
+      }catch(error){
+        formStatus.textContent='We could not send your message right now. Please try again in a moment.';
+      }finally{
+        sendButton.disabled=false;
+        sendButton.textContent='Send message ↗';
+      }
     });
   </script>
 </body>
