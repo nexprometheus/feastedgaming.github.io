@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nexprometheus.github.io/feastedgaming.github.io/sitemap.xml
