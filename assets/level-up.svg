@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="title desc">
+<title id="title">Level up in the TCG arena</title>
+<desc id="desc">A new player advances through glowing game levels toward a champion's star.</desc>
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#102946"/><stop offset="1" stop-color="#11152e"/></linearGradient>
+ <linearGradient id="xp" x2="1"><stop stop-color="#55e7ff"/><stop offset="1" stop-color="#a783ff"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<rect width="720" height="300" rx="20" fill="url(#bg)"/>
+<g fill="none" stroke="#55e7ff" stroke-width="3" opacity=".65">
+ <path d="M42 234h104v-38h91v-38h91v-38h90v-38h70" stroke-linejoin="round"/>
+ <path d="M42 257h510" opacity=".35"/>
+</g>
+<g fill="#0b1a2a" stroke="#55e7ff" stroke-width="2">
+ <rect x="76" y="194" width="58" height="40" rx="8"/><rect x="168" y="156" width="58" height="40" rx="8"/>
+ <rect x="259" y="118" width="58" height="40" rx="8"/><rect x="350" y="80" width="58" height="40" rx="8"/>
+</g>
+<g fill="#d9f7ff" font-family="system-ui,sans-serif" font-size="12" font-weight="800" text-anchor="middle">
+ <text x="105" y="219">LV 1</text><text x="197" y="181">LV 2</text><text x="288" y="143">LV 3</text><text x="379" y="105">LV 4</text>
+</g>
+<g filter="url(#glow)" transform="translate(496 42)">
+ <path d="M92 3 113 58l59 3-45 39 14 57-49-32-49 32 14-57-45-39 59-3z" fill="#ffd36e" opacity=".88"/>
+ <path d="m92 29 13 34 37 2-28 24 9 36-31-20-31 20 9-36-28-24 37-2z" fill="#fff3bf"/>
+</g>
+<g transform="translate(552 156)" fill="none" stroke="#a783ff" stroke-width="4" stroke-linecap="round">
+ <path d="M0 0v30m0-15 17-15m-17 15-17-15"/>
+</g>
+<rect x="76" y="263" width="436" height="11" rx="6" fill="#142e46" stroke="#45617e"/>
+<rect x="80" y="266" width="310" height="5" rx="3" fill="url(#xp)" filter="url(#glow)"/>
+<text x="80" y="288" fill="#a9c0d2" font-family="system-ui,sans-serif" font-size="11" font-weight="700" letter-spacing="2">XP  720 / 1000</text>
+<text x="551" y="258" fill="#ffd36e" font-family="system-ui,sans-serif" font-size="13" font-weight="800" letter-spacing="2">NEXT LEVEL</text>
+</svg>
