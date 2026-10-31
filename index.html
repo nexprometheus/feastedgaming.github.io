@@ -67,6 +67,19 @@
     @media(max-width:620px){.character-mascot{padding:4px;border-radius:50%;background:rgba(5,18,32,.82)}.character-mascot .mascot-face{width:28px;height:28px}.character-mascot .mascot-name{display:none}}
     @media(prefers-reduced-motion:reduce){.character-mascot{animation:none}}
 
+    /* Tap a floating badge to reveal its character transformation */
+    .character-mascots{pointer-events:none}
+    .character-mascot{pointer-events:auto;cursor:pointer;appearance:none;font:inherit}
+    .character-mascot:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+    .character-mascot .mascot-face{transition:transform .35s,filter .35s}
+    .character-mascot.is-transformed{z-index:30;animation:mascot-transform .55s cubic-bezier(.2,.8,.2,1) both;gap:10px;padding:9px 15px 9px 10px;border-radius:18px;background:linear-gradient(145deg,rgba(15,42,67,.98),rgba(22,19,51,.98));box-shadow:0 0 0 1px rgba(85,231,255,.2),0 0 35px rgba(85,231,255,.32);font-size:13px}
+    .character-mascot.is-transformed .mascot-face{width:66px;height:66px;border-radius:14px;font-size:42px;background:rgba(85,231,255,.14);filter:drop-shadow(0 0 13px currentColor)}
+    .character-mascot.is-transformed .mascot-name{display:block}
+    .character-mascot.is-transformed .mascot-name:after{content:"  ✦ TAP TO RESET";display:block;margin-top:7px;color:var(--teal);font-size:8px;letter-spacing:.12em}
+    @keyframes mascot-transform{0%{transform:scale(.65) rotate(-12deg)}65%{transform:scale(1.12) rotate(4deg)}100%{transform:scale(1) rotate(0)}}
+    @media(max-width:620px){.character-mascot.is-transformed{padding:8px 12px;border-radius:16px}.character-mascot.is-transformed .mascot-face{width:58px;height:58px;font-size:38px}.character-mascot.is-transformed .mascot-name{display:block}}
+    @media(prefers-reduced-motion:reduce){.character-mascot.is-transformed{animation:none}}
+
   </style>
 </head>
 <body>
@@ -170,15 +183,31 @@
       cards.forEach((card,i)=>card.addEventListener('click',()=>choose(i)));
       start.addEventListener('click',startRound);again.addEventListener('click',startRound);
     })();
+
+    // Character badges expand into animated character-style reveals.
+    (() => {
+      const mascots=[...document.querySelectorAll('.character-mascot')];
+      mascots.forEach(mascot=>mascot.addEventListener('click',()=>{
+        const wasOpen=mascot.classList.contains('is-transformed');
+        mascots.forEach(item=>{
+          item.classList.remove('is-transformed');
+          item.setAttribute('aria-pressed','false');
+        });
+        if(!wasOpen){
+          mascot.classList.add('is-transformed');
+          mascot.setAttribute('aria-pressed','true');
+        }
+      }));
+    })();
   </script>
 
-  <aside class="character-mascots" aria-hidden="true">
-    <div class="character-mascot pokemon" style="top:19%;left:12px;--duration:4.4s"><span class="mascot-face">⚡</span><span class="mascot-name">Pikachu</span></div>
-    <div class="character-mascot pirate" style="top:37%;right:12px;--duration:5.1s;animation-delay:-1.7s"><span class="mascot-face">🏴‍☠️</span><span class="mascot-name">Luffy</span></div>
-    <div class="character-mascot lorcana" style="top:57%;left:12px;--duration:4.7s;animation-delay:-2.2s"><span class="mascot-face">❄️</span><span class="mascot-name">Elsa</span></div>
-    <div class="character-mascot pokemon" style="top:73%;right:12px;--duration:5.3s;animation-delay:-.8s"><span class="mascot-face">🔥</span><span class="mascot-name">Charmander</span></div>
-    <div class="character-mascot pirate" style="top:84%;left:12px;--duration:4.9s;animation-delay:-3s"><span class="mascot-face">🍖</span><span class="mascot-name">Chopper</span></div>
-    <div class="character-mascot lorcana" style="top:26%;right:12px;--duration:5.5s;animation-delay:-2.6s"><span class="mascot-face">✨</span><span class="mascot-name">Mickey</span></div>
+  <aside class="character-mascots" aria-label="Tap a floating character badge to transform it">
+    <button class="character-mascot pokemon" type="button" aria-pressed="false" aria-label="Transform into Pikachu" style="top:19%;left:12px;--duration:4.4s"><span class="mascot-face" aria-hidden="true">⚡</span><span class="mascot-name">Pikachu</span></button>
+    <button class="character-mascot pirate" type="button" aria-pressed="false" aria-label="Transform into Luffy" style="top:37%;right:12px;--duration:5.1s;animation-delay:-1.7s"><span class="mascot-face" aria-hidden="true">🏴‍☠️</span><span class="mascot-name">Luffy</span></button>
+    <button class="character-mascot lorcana" type="button" aria-pressed="false" aria-label="Transform into Elsa" style="top:57%;left:12px;--duration:4.7s;animation-delay:-2.2s"><span class="mascot-face" aria-hidden="true">❄️</span><span class="mascot-name">Elsa</span></button>
+    <button class="character-mascot pokemon" type="button" aria-pressed="false" aria-label="Transform into Charmander" style="top:73%;right:12px;--duration:5.3s;animation-delay:-.8s"><span class="mascot-face" aria-hidden="true">🔥</span><span class="mascot-name">Charmander</span></button>
+    <button class="character-mascot pirate" type="button" aria-pressed="false" aria-label="Transform into Chopper" style="top:84%;left:12px;--duration:4.9s;animation-delay:-3s"><span class="mascot-face" aria-hidden="true">🍖</span><span class="mascot-name">Chopper</span></button>
+    <button class="character-mascot lorcana" type="button" aria-pressed="false" aria-label="Transform into Mickey" style="top:26%;right:12px;--duration:5.5s;animation-delay:-2.6s"><span class="mascot-face" aria-hidden="true">✨</span><span class="mascot-name">Mickey</span></button>
   </aside>
 
 </body>
