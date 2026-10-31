@@ -53,39 +53,6 @@
     .lady-game:before{content:"✦  ♢  ✦";position:absolute;right:22px;top:14px;color:rgba(85,231,255,.38);letter-spacing:.7em;pointer-events:none}.lady-intro{text-align:center;max-width:650px;margin:0 auto 24px}.lady-intro p{color:var(--soft);margin:8px 0 0}.lady-table{display:flex;justify-content:center;gap:clamp(12px,4vw,34px);perspective:900px;margin:28px auto 22px;max-width:680px}.lady-card{position:relative;width:clamp(88px,22vw,150px);aspect-ratio:2.5/3.5;padding:0;border:2px solid rgba(85,231,255,.6);border-radius:13px;background:linear-gradient(145deg,#142f4a,#09182b);color:white;cursor:pointer;box-shadow:0 9px 22px rgba(0,0,0,.35),inset 0 0 0 5px rgba(85,231,255,.07);transform-style:preserve-3d;transition:transform .35s,box-shadow .25s,border-color .25s}.lady-card:before{content:"✧";position:absolute;inset:8px;border:1px solid rgba(85,231,255,.34);border-radius:8px;display:grid;place-items:center;color:var(--teal);font-size:clamp(2.2rem,7vw,4rem);text-shadow:0 0 18px rgba(85,231,255,.7);background:repeating-linear-gradient(45deg,transparent 0 8px,rgba(85,231,255,.035) 8px 10px)}.lady-card:hover:not(:disabled){transform:translateY(-8px) rotateY(7deg);box-shadow:0 14px 30px rgba(40,184,220,.2)}.lady-card:focus-visible{outline:3px solid var(--gold);outline-offset:5px}.lady-card:disabled{cursor:default}.lady-card.revealed{background:linear-gradient(145deg,#243b54,#101c30);border-color:var(--gold)}.lady-card.revealed:before{content:"";display:none}.lady-card .face{display:none;position:absolute;inset:0;align-items:center;justify-content:center;flex-direction:column;gap:5px;color:var(--gold);font-size:clamp(2rem,7vw,4rem);text-shadow:0 0 18px rgba(255,211,110,.4)}.lady-card.revealed .face{display:flex}.lady-card .face small{font:700 clamp(.52rem,1.8vw,.72rem) var(--sans);letter-spacing:.1em;color:#dceaf4}.lady-card.winner{box-shadow:0 0 28px rgba(255,211,110,.35)}.lady-card.miss{opacity:.72}.lady-card.shuffling{animation:ladyShuffle .42s ease-in-out 2 alternate}.lady-card:nth-child(2).shuffling{animation-delay:.07s}.lady-card:nth-child(3).shuffling{animation-delay:.14s}@keyframes ladyShuffle{0%{transform:translateX(-12px) rotate(-5deg)}100%{transform:translateX(12px) rotate(5deg)}}.lady-controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.lady-status{text-align:center;min-height:1.7em;margin:14px 0;color:var(--teal);font-weight:700}.lady-stats{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:20px;color:var(--soft);font-size:.86rem}.lady-stats strong{color:var(--gold)}.lady-rules{text-align:center;color:var(--soft);font-size:.8rem;margin:20px 0 0}.lady-card:disabled:not(.revealed){opacity:.9}
     @media(max-width:430px){.lady-table{gap:9px}.lady-card{border-radius:9px}.lady-game{padding:19px 12px}.lady-game:before{display:none}}
   
-    /* Original vector character sprites, animated like tiny game avatars */
-    .character-mascot .mascot-face{width:34px;height:34px;overflow:visible;background:transparent!important}
-    .character-mascot .mascot-face svg{display:block;width:100%;height:100%;overflow:visible;image-rendering:pixelated;filter:drop-shadow(0 2px 5px rgba(0,0,0,.5))}
-    .character-mascot.is-transformed .mascot-face{width:88px;height:88px;background:rgba(85,231,255,.08)!important}
-    .character-mascot.is-transformed .mascot-face svg{animation:sprite-bounce .75s ease-in-out infinite alternate;filter:drop-shadow(0 0 11px rgba(85,231,255,.45))}
-    @keyframes sprite-bounce{from{transform:translateY(2px) scale(.96)}to{transform:translateY(-7px) scale(1.04)}}
-    @media(max-width:620px){.character-mascot .mascot-face{width:34px;height:34px}.character-mascot.is-transformed .mascot-face{width:76px;height:76px}}
-    /* Tiny character mascots: playful, lightweight side-to-side hops */
-    .character-mascots{position:fixed;inset:0;z-index:18;pointer-events:none;overflow:hidden}
-    .character-mascot{position:absolute;display:flex;align-items:center;gap:5px;padding:5px 9px 5px 6px;border:1px solid rgba(85,231,255,.34);border-radius:999px;background:rgba(5,18,32,.88);box-shadow:0 0 18px rgba(85,231,255,.14);color:#effaff;font:700 10px/1 var(--sans);white-space:nowrap;backdrop-filter:blur(8px);animation:mascot-hop var(--duration,4.8s) ease-in-out infinite alternate;will-change:transform}
-    .character-mascot .mascot-face{display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:rgba(85,231,255,.1);font-size:18px;line-height:1}
-    .character-mascot.pokemon{border-color:rgba(255,211,110,.55);box-shadow:0 0 16px rgba(255,211,110,.15)}
-    .character-mascot.pokemon .mascot-face{background:rgba(255,211,110,.13)}
-    .character-mascot.pirate{border-color:rgba(255,130,105,.52);box-shadow:0 0 16px rgba(255,130,105,.14)}
-    .character-mascot.pirate .mascot-face{background:rgba(255,130,105,.12)}
-    .character-mascot.lorcana{border-color:rgba(167,131,255,.58);box-shadow:0 0 16px rgba(167,131,255,.16)}
-    .character-mascot.lorcana .mascot-face{background:rgba(167,131,255,.14)}
-    @keyframes mascot-hop{0%{transform:translate3d(-12px,0,0) rotate(-3deg)}45%{transform:translate3d(15px,-13px,0) rotate(3deg)}100%{transform:translate3d(-5px,-3px,0) rotate(-1deg)}}
-    @media(max-width:620px){.character-mascot{padding:4px;border-radius:50%;background:rgba(5,18,32,.82)}.character-mascot .mascot-face{width:28px;height:28px}.character-mascot .mascot-name{display:none}}
-    @media(prefers-reduced-motion:reduce){.character-mascot{animation:none}}
-
-    /* Tap a floating badge to reveal its character transformation */
-    .character-mascots{pointer-events:none}
-    .character-mascot{pointer-events:auto;cursor:pointer;appearance:none;font:inherit}
-    .character-mascot:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
-    .character-mascot .mascot-face{transition:transform .35s,filter .35s}
-    .character-mascot.is-transformed{z-index:30;animation:mascot-transform .55s cubic-bezier(.2,.8,.2,1) both;gap:10px;padding:9px 15px 9px 10px;border-radius:18px;background:linear-gradient(145deg,rgba(15,42,67,.98),rgba(22,19,51,.98));box-shadow:0 0 0 1px rgba(85,231,255,.2),0 0 35px rgba(85,231,255,.32);font-size:13px}
-    .character-mascot.is-transformed .mascot-face{width:66px;height:66px;border-radius:14px;font-size:42px;background:rgba(85,231,255,.14);filter:drop-shadow(0 0 13px currentColor)}
-    .character-mascot.is-transformed .mascot-name{display:block}
-    .character-mascot.is-transformed .mascot-name:after{content:"  ✦ TAP TO RESET";display:block;margin-top:7px;color:var(--teal);font-size:8px;letter-spacing:.12em}
-    @keyframes mascot-transform{0%{transform:scale(.65) rotate(-12deg)}65%{transform:scale(1.12) rotate(4deg)}100%{transform:scale(1) rotate(0)}}
-    @media(max-width:620px){.character-mascot.is-transformed{padding:8px 12px;border-radius:16px}.character-mascot.is-transformed .mascot-face{width:58px;height:58px;font-size:38px}.character-mascot.is-transformed .mascot-name{display:block}}
-    @media(prefers-reduced-motion:reduce){.character-mascot.is-transformed{animation:none}}
 
   </style>
 </head>
@@ -191,31 +158,10 @@
       start.addEventListener('click',startRound);again.addEventListener('click',startRound);
     })();
 
-    // Character badges expand into animated character-style reveals.
-    (() => {
-      const mascots=[...document.querySelectorAll('.character-mascot')];
-      mascots.forEach(mascot=>mascot.addEventListener('click',()=>{
-        const wasOpen=mascot.classList.contains('is-transformed');
-        mascots.forEach(item=>{
-          item.classList.remove('is-transformed');
-          item.setAttribute('aria-pressed','false');
-        });
-        if(!wasOpen){
-          mascot.classList.add('is-transformed');
-          mascot.setAttribute('aria-pressed','true');
-        }
-      }));
-    })();
+
   </script>
 
-  <aside class="character-mascots" aria-label="Tap a floating character badge to transform it">
-    <button class="character-mascot pokemon" type="button" aria-pressed="false" aria-label="Transform into Pikachu" style="top:19%;left:12px;--duration:4.4s"><span class="mascot-face" aria-hidden="true"><svg viewBox="0 0 64 64" role="img" aria-label="Pikachu sprite"><path fill="#f7c943" stroke="#8c5b18" stroke-width="2" d="M12 22 7 3l17 10 8-3 9 3L57 3l-5 23 5 11-5 16-11 7H23L11 48 7 36z"/><path fill="#2b241d" d="m8 5 4 2 5 10-5-2zM56 5l-4 2-5 10 5-2z"/><path fill="#fff" d="M19 27q5-7 10 0v7q-5 5-10 0zM36 27q5-7 10 0v7q-5 5-10 0z"/><circle cx="25" cy="31" r="2.6" fill="#201b18"/><circle cx="42" cy="31" r="2.6" fill="#201b18"/><circle cx="15" cy="40" r="5" fill="#e85b4d"/><circle cx="50" cy="40" r="5" fill="#e85b4d"/><path d="M29 42q4 4 8 0" fill="none" stroke="#6b3b24" stroke-width="2" stroke-linecap="round"/><path fill="#e9a52c" d="m48 52 9 5-6 5-6-5z"/></svg></span><span class="mascot-name">Pikachu</span></button>
-    <button class="character-mascot pirate" type="button" aria-pressed="false" aria-label="Transform into Luffy" style="top:37%;right:12px;--duration:5.1s;animation-delay:-1.7s"><span class="mascot-face" aria-hidden="true"><svg viewBox="0 0 64 64" role="img" aria-label="Luffy sprite"><path fill="#4a2419" d="M8 23Q9 5 31 6 55 5 57 25L50 35H14z"/><path fill="#c83b2c" stroke="#6f211c" stroke-width="2" d="M9 18Q32 2 56 18l-3 9H11z"/><path fill="#f0c34e" d="M8 22h48v5H8z"/><path fill="#f0c49b" stroke="#8c5238" stroke-width="1.5" d="M15 27q17-9 34 0l-3 22-14 9-15-9z"/><path fill="#4a2419" d="M13 30q8-8 15-2l-5 5-10 1zm23-2q9-6 16 2l-10 4z"/><path d="M25 40q7 6 14 0" fill="none" stroke="#743c2d" stroke-width="2" stroke-linecap="round"/><path d="M25 52q7 4 14 0" stroke="#b92d25" stroke-width="5"/><path fill="#f0c34e" d="M8 24q-3 7 3 10l4-8zm48 0q3 7-3 10l-4-8z"/></svg></span><span class="mascot-name">Luffy</span></button>
-    <button class="character-mascot lorcana" type="button" aria-pressed="false" aria-label="Transform into Elsa" style="top:57%;left:12px;--duration:4.7s;animation-delay:-2.2s"><span class="mascot-face" aria-hidden="true"><svg viewBox="0 0 64 64" role="img" aria-label="Elsa sprite"><path fill="#d9f8ff" d="M12 30Q4 8 27 4q24-3 27 21l-5 26-9 9H20l-9-13z"/><path fill="#a9e8f6" d="M16 22Q17 7 32 8q17 0 18 16l-8-5-10-9-9 10z"/><path fill="#f1c6ae" stroke="#a56d78" stroke-width="1.5" d="M18 25q14-13 29 0l-3 22-12 9-12-9z"/><path fill="#fff" d="M14 24 4 34l7 18 8-8zm35 0 10 10-7 18-8-8z"/><path fill="#3b7290" d="M22 31q4-4 8 0-4 3-8 0m10 0q4-4 8 0-4 3-8 0"/><path d="M27 43q5 4 10 0" fill="none" stroke="#a65d76" stroke-width="2"/><path fill="#7ecde5" d="m32 2 3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></svg></span><span class="mascot-name">Elsa</span></button>
-    <button class="character-mascot pokemon" type="button" aria-pressed="false" aria-label="Transform into Charmander" style="top:73%;right:12px;--duration:5.3s;animation-delay:-.8s"><span class="mascot-face" aria-hidden="true"><svg viewBox="0 0 64 64" role="img" aria-label="Charmander sprite"><path fill="#f17a32" stroke="#9d3f1d" stroke-width="2" d="M18 23 10 13l2 18-5 13 9 12 16 5 17-8 6-15-7-14-10-5z"/><path fill="#ffd18a" d="M20 39q12-8 25 0l-2 15-11 5-11-6z"/><path fill="#fff" d="M18 28q5-6 10 0v7h-10zm17 0q5-6 10 0v7H35z"/><circle cx="24" cy="31" r="2.5" fill="#20232b"/><circle cx="41" cy="31" r="2.5" fill="#20232b"/><path d="M28 42q5 5 10 0" fill="none" stroke="#833c27" stroke-width="2"/><path fill="#f5a623" d="M53 47q7-8 7-16-8 3-10 11z"/><path fill="#ffdf58" d="M55 42q5-7 3-11-5 5-5 10z"/></svg></span><span class="mascot-name">Charmander</span></button>
-    <button class="character-mascot pirate" type="button" aria-pressed="false" aria-label="Transform into Chopper" style="top:84%;left:12px;--duration:4.9s;animation-delay:-3s"><span class="mascot-face" aria-hidden="true"><svg viewBox="0 0 64 64" role="img" aria-label="Tony Tony Chopper sprite"><path fill="#8c5538" d="M10 25Q4 5 22 8l10 7 10-7q18-3 12 17l-7 13H17z"/><path fill="#f0c5a2" d="M19 26q13-10 26 0l-2 22-11 8-12-8z"/><path fill="#d94b55" d="M8 18Q30 5 56 18l-4 10H12z"/><path fill="#f6d56a" d="M7 17h50v6H7z"/><path fill="#fff" d="M20 29q5-5 9 0v7h-9zm15 0q5-5 9 0v7h-9z"/><circle cx="25" cy="32" r="2.5" fill="#25232a"/><circle cx="40" cy="32" r="2.5" fill="#25232a"/><path d="M28 42q4 3 8 0" fill="none" stroke="#87513e" stroke-width="2"/><path fill="#f4d36b" d="M28 3h8l-2 8h-5z"/></svg></span><span class="mascot-name">Chopper</span></button>
-    <button class="character-mascot lorcana" type="button" aria-pressed="false" aria-label="Transform into Mickey" style="top:26%;right:12px;--duration:5.5s;animation-delay:-2.6s"><span class="mascot-face" aria-hidden="true"><svg viewBox="0 0 64 64" role="img" aria-label="Mickey Mouse sprite"><circle cx="16" cy="16" r="13" fill="#181b25" stroke="#a783ff" stroke-width="2"/><circle cx="48" cy="16" r="13" fill="#181b25" stroke="#a783ff" stroke-width="2"/><circle cx="32" cy="35" r="24" fill="#171923" stroke="#a783ff" stroke-width="2"/><ellipse cx="23" cy="34" rx="7" ry="10" fill="#fff"/><ellipse cx="41" cy="34" rx="7" ry="10" fill="#fff"/><circle cx="25" cy="36" r="3" fill="#171923"/><circle cx="39" cy="36" r="3" fill="#171923"/><ellipse cx="32" cy="45" rx="9" ry="6" fill="#f0c4a3"/><path d="M25 46q7 8 14 0" fill="none" stroke="#8d493e" stroke-width="2"/><path fill="#d93a45" d="M21 56h22l-4 7H25z"/></svg></span><span class="mascot-name">Mickey</span></button>
-  </aside>
+
 
 </body>
 </html>
