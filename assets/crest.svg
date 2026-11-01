@@ -1,10 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
- <title id="title">Feasted Gaming nexus crest</title><desc id="desc">A luminous orbital crest surrounding the initials FG.</desc>
- <defs><linearGradient id="ring" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#55e7ff"/><stop offset=".55" stop-color="#a783ff"/><stop offset="1" stop-color="#ffd36e"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
- <circle cx="64" cy="64" r="48" fill="#0b1929" stroke="url(#ring)" stroke-width="3" filter="url(#glow)"/>
- <ellipse cx="64" cy="64" rx="56" ry="23" fill="none" stroke="#55e7ff" stroke-opacity=".65" stroke-width="2.5" transform="rotate(-32 64 64)"/>
- <circle cx="104" cy="39" r="6" fill="#ffd36e" stroke="#071321" stroke-width="2"/>
- <path d="M40 47h35v8H48v10h25v8H48v22h-8z" fill="#edfaff"/>
- <path d="M88 47H77v8h11c7 0 11 4 11 10v15c0 7-4 11-11 11H77v8h11c12 0 20-7 20-19V66c0-12-8-19-20-19Z" fill="#55e7ff"/>
- <path d="M77 69h12v8H77z" fill="#a783ff"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title desc">
+<title id="title">Feasted Gaming Arcane Crest</title><desc id="desc">A fantasy shield with a glowing teal rune, crossed blades, and a golden crown.</desc>
+<defs>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff1b0"/><stop offset=".45" stop-color="#d9a94d"/><stop offset="1" stop-color="#80521f"/></linearGradient>
+ <linearGradient id="teal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b8fff4"/><stop offset=".5" stop-color="#42d9c4"/><stop offset="1" stop-color="#257c91"/></linearGradient>
+ <radialGradient id="bg"><stop stop-color="#263d68"/><stop offset="1" stop-color="#080f24"/></radialGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+</defs>
+<circle cx="80" cy="80" r="72" fill="#090f22" stroke="url(#gold)" stroke-width="3"/>
+<circle cx="80" cy="80" r="64" fill="none" stroke="#54ddce" stroke-opacity=".45" stroke-width="1.5" stroke-dasharray="3 6"/>
+<path d="M36 43 80 18l44 25-7 67-37 31-37-31Z" fill="url(#bg)" stroke="url(#gold)" stroke-width="3"/>
+<path d="m52 48 12-16 16 12 16-12 12 16-8 8H60Z" fill="url(#gold)" stroke="#fff0b4" stroke-width="1.5"/>
+<path d="M80 54 99 75 80 110 61 75Z" fill="none" stroke="url(#teal)" stroke-width="3" filter="url(#glow)"/>
+<path d="M80 62v39M68 77h24M70 91l10-8 10 8" fill="none" stroke="#e2fff9" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m39 117 20-20m62 20-20-20" stroke="url(#gold)" stroke-width="4" stroke-linecap="round"/>
+<circle cx="80" cy="80" r="4" fill="#fff1b0" filter="url(#glow)"/>
 </svg>
