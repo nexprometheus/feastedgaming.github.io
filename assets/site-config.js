@@ -1,7 +1,7 @@
-// Public browser configuration only. The Supabase publishable/anon key is designed
-// for frontend use; database access must be protected by Row Level Security.
-// Fill these values after creating the project. Never place a service-role key here.
+// Feasted Gaming public Supabase browser configuration.
+// This publishable key is public; authorization is enforced by Supabase RLS.
+// Never commit database passwords, service_role keys, or sb_secret keys.
 window.FEASTED_SUPABASE = {
-  url: "",
-  anonKey: ""
+  url: "https://gebzzeqnsloqlkwjsjhf.supabase.co",
+  anonKey: "sb_publishable_SPhwJR1c22nztkZ_s50UfQ_uM_hIEip"
 };
