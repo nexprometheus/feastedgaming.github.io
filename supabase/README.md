@@ -1,44 +1,45 @@
-# Feasted Gaming Championship Arena — Supabase setup
+# Feasted Gaming Supabase setup
 
-The live Championship Arena currently has a browser-local storage implementation. This SQL file creates the shared database tables and row-level security rules needed for the six game circuits.
+The Championship Arena uses one shared schema: `championship-arena-schema.sql`. It supports player accounts and registrations, public event history and rankings, staff-only result entry, published announcements, and payment requests that remain pending until an admin manually reviews Venmo.
 
-## 1. Create the Supabase project
-Create a project at https://supabase.com/dashboard. In **Project Settings → API**, copy the Project URL and the **publishable/anon** client key. Never use or publish the service-role key in browser code.
+There is also an older, separate `schema.sql` in this folder. It is not used by the current Arena page. Run only `championship-arena-schema.sql`; do not apply both models as a combined setup.
 
-## 2. Create the database tables
-Open **SQL Editor → New query**, paste the contents of `championship-arena-schema.sql`, and run it.
+## Connect the project
 
-Tables created:
-- `tournament_events`: game, tournament title/date, MVP, highlight URL, notes
-- `tournament_results`: champion, runner-up, third place, and all other placements
-- `player_registrations`: player sign-ups
-- `championship_staff`: authorized staff/admin user IDs
+1. Create or select the Feasted Gaming project in the [Supabase dashboard](https://supabase.com/dashboard).
+2. Open **Project Settings → API** and copy the Project URL and the publishable (anon) key.
+3. Put those two public client values into `assets/site-config.js` as `url` and `anonKey`. The publishable key is meant for browser use. **Never use the `service_role` key or database password in this file or anywhere in this repository.** Row Level Security is the security boundary.
+4. In **SQL Editor**, run `championship-arena-schema.sql` once. It can also upgrade the earlier Championship Arena schema.
+5. In **Authentication → URL Configuration**, set the site URL to `https://nexprometheus.github.io/feastedgaming.github.io/` and add `https://nexprometheus.github.io/feastedgaming.github.io/championship.html` as a redirect URL.
+6. Create an account from the Arena page and confirm its email. In SQL Editor, promote the owner's Auth user UUID:
 
-Supported game IDs: `smash`, `magic`, `pokemon`, `lorcana`, `onepiece`, `yugioh`.
+   ```sql
+   insert into public.championship_staff (user_id, role)
+   values ('OWNER_AUTH_USER_UUID', 'admin')
+   on conflict (user_id) do update set role = 'admin';
+   ```
 
-## 3. Create the first staff account
-In Supabase **Authentication → Users**, invite the owner/staff email and have that person complete sign-in. Copy that user's UUID, then run this in SQL Editor (replace the placeholder):
-```sql
-insert into public.championship_staff (user_id, role)
-values ('PASTE_AUTH_USER_UUID_HERE', 'admin')
-on conflict (user_id) do update set role = 'admin';
-```
-Add other authorized staff by inserting their Auth user UUID with role `staff`. Only admins can manage the staff roster.
+   Add trusted tournament operators as `staff`. Admins alone can manage the staff roster and review payment records. Staff can record tournament results and read the registration inbox.
 
-## 4. Connect the website
-The frontend still needs the Supabase project URL and publishable/anon key wired into its client configuration, and the Championship Arena JavaScript must be switched from localStorage to Supabase reads/writes and authenticated staff checks. Those values are project-specific and cannot be inferred from GitHub access.
+The configuration file contains only the public project URL and publishable key. Do not store email passwords, service-role keys, or database credentials in GitHub. Static GitHub Pages cannot keep browser configuration private; Supabase RLS must remain enabled.
 
-## Security notes
-- Do not place a service-role key in `index.html`, `championship.html`, or any public repository file.
-- Public visitors can view tournament events/results and submit player registrations.
-- Only authenticated users listed in `championship_staff` can record or edit event results.
-- Review public registration abuse controls (CAPTCHA/rate limiting) before opening registration widely.
+## What the policies enforce
 
+- Anyone can read tournament history, placements, rankings, and published announcements.
+- A signed-in player can create registrations only for their own Auth user ID. Anonymous registration writes are denied.
+- Staff/admin accounts can read registrations and record complete tournament events through a database function. Event plus placements are inserted in one transaction.
+- Only an admin can review a payment request. Players can create a pending record and read only their own payment history.
+- A user-submitted Venmo reference stays **pending**. The admin must compare it against the Venmo account before marking it verified. No Venmo link or client-side claim confirms a payment.
+- Staff announcements are public only after publication. Staff tools remain hidden until the authenticated role is confirmed by Supabase.
 
-## November 2026 implementation audit
+## Launch checks
 
-The repository now also contains `supabase/schema.sql` (profiles, staff_members, games, tournaments, registrations, results, announcements, payment_requests). **This is a separate proposed data model** from `championship-arena-schema.sql` (championship_staff, tournament_events, tournament_results, player_registrations). Do not run both and assume the existing Championship Arena is connected: the current `championship.html` stores records in browser localStorage and has no live Supabase configuration. The two models need a deliberate migration and UI integration.
+- Configure the Supabase URL and publishable key in `assets/site-config.js`.
+- Run the SQL schema and promote the owner account as described above.
+- Confirm signup email delivery and the site redirect URL in Supabase Auth.
+- Sign in as a player and confirm registration/payment records persist across a second device. Verify players cannot see other users' payment records.
+- Sign in as staff and confirm results, announcements, and registration access work; confirm staff cannot review payments or alter the staff roster.
+- Sign in as admin and verify each test payment against Venmo before changing its status.
+- Export and securely retain database backups from Supabase. Do not put personal payment data or database backups in the public repository.
 
-**Safe next steps:** (1) obtain the project's public Project URL and publishable key from Supabase; (2) choose a single schema and run it in SQL Editor; (3) bootstrap the first admin by authenticated UUID; (4) wire client reads and authenticated writes with RLS; (5) migrate existing browser-local backups only with owner review; (6) test staff/nonstaff access and deployment. Do not expose secret/service-role keys or database passwords. Venmo requests remain manually verified, never automatically paid based on user form input.
-
-The actual Championship Arena page is `/championship.html` (not `/championship-arena/`).
+Until the owner performs the Supabase setup and supplies the public configuration, the Arena can show legacy browser-local history, but account registration, shared event writes, announcements, and payment records remain unavailable. No private credentials are required in this repository.
