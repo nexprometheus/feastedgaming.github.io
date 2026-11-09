@@ -160,6 +160,7 @@ async function refreshAccount() {
     try { await loadStaffRegistrations(); } catch { document.getElementById("staffRegistrations").textContent = "Registration inbox is unavailable until the database setup is complete."; }
   }
   if (staffRole === "admin") {
+    await loadStaffManagement();
     try { await loadAdminDashboard(); } catch { document.getElementById("paymentRequests").textContent = "Payment records are unavailable until the database setup is complete."; }
   }
 }
@@ -174,6 +175,44 @@ async function loadPaymentHistory() {
   const items = await supabase("/rest/v1/payment_requests?select=id,payment_type,item_name,amount_cents,transaction_reference,status,created_at,reviewed_at&order=created_at.desc", { authenticated: true });
   target.innerHTML = items.length ? items.map(item => `<article class="historyitem"><div class="pills"><span class="pill">${esc(item.status)}</span><span class="pill">${esc(new Date(item.created_at).toLocaleDateString())}</span></div><strong>${esc(item.item_name)}</strong> · $${(item.amount_cents / 100).toFixed(2)}<p class="muted">${esc(item.payment_type)} · Reference: ${esc(item.transaction_reference)}</p></article>`).join("") : "No payment records yet.";
 }
+async function loadStaffManagement() {
+  if (staffRole !== "admin") return;
+  const target = document.getElementById("staffManagementList");
+  try {
+    const rows = await supabase("/rest/v1/rpc/list_championship_staff", {
+      method: "POST", authenticated: true, body: {}
+    });
+    target.innerHTML = rows.length
+      ? `<table><thead><tr><th>Account</th><th>Role</th><th>Action</th></tr></thead><tbody>${rows.map(row => `<tr><td>${esc(row.email)}</td><td>${esc(row.role)}</td><td>${row.user_id === session.user.id ? "Your account" : `<button type="button" data-staff-email="${esc(row.email)}" data-staff-role="remove">Revoke</button>`}</td></tr>`).join("")}</tbody></table>`
+      : '<div class="empty">No staff accounts found.</div>';
+  } catch (error) {
+    target.textContent = `Staff management is not ready. Run supabase/staff-management.sql in Supabase SQL Editor. ${error.message}`;
+  }
+}
+async function changeStaffPermission(email, role) {
+  if (staffRole !== "admin") return;
+  if (role === "admin" && !window.confirm(`Grant full admin access to ${email}? This allows managing other staff and reviewing payments.`)) return;
+  if (role === "remove" && !window.confirm(`Revoke Championship staff access for ${email}?`)) return;
+  try {
+    await supabase("/rest/v1/rpc/manage_championship_staff", {
+      method: "POST", authenticated: true, body: { target_email: email, new_role: role }
+    });
+    setStatus("staffManagementStatus", `Permission updated for ${email}. Existing sessions may need to refresh.`);
+    await loadStaffManagement();
+  } catch (error) { setStatus("staffManagementStatus", `Could not update permissions: ${error.message}`); }
+}
+document.getElementById("staffManagementForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  const email = document.getElementById("staffManageEmail").value.trim();
+  const role = document.getElementById("staffManageRole").value;
+  await changeStaffPermission(email, role);
+});
+document.getElementById("staffManagementList").addEventListener("click", async event => {
+  const button = event.target.closest("[data-staff-email]");
+  if (!button) return;
+  await changeStaffPermission(button.dataset.staffEmail, button.dataset.staffRole);
+});
+
 async function loadAdminDashboard() {
   const items = await supabase("/rest/v1/payment_requests?select=id,user_id,payment_type,item_name,amount_cents,transaction_reference,status,created_at&order=created_at.desc&limit=100", { authenticated: true });
   const target = document.getElementById("paymentRequests");
