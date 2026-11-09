@@ -81,8 +81,8 @@ function fillSelects() {
   ["playerGame", "resultGame", "scheduleGame"].forEach(id => { document.getElementById(id).innerHTML = GAMES.map(g => `<option value="${g.id}">${g.name}</option>`).join(""); });
 }
 function renderRanks() {
-  document.getElementById("rankTabs").innerHTML = GAMES.map(g => `<button type="button" class="${activeGame === g.id ? "active" : ""}" data-rank="${g.id}">${g.short}</button>`).join("");
-  document.querySelectorAll("[data-rank]").forEach(b => b.addEventListener("click", () => { activeGame = b.dataset.rank; renderRanks(); }));
+  document.getElementById("rankTabs").innerHTML = GAMES.map(g => `<button type="button" aria-pressed="${activeGame === g.id}" class="${activeGame === g.id ? "active" : ""}" data-rank="${g.id}">${g.short}</button>`).join("");
+  document.querySelectorAll("[data-rank]").forEach(b => b.addEventListener("click", event => { activeGame = b.dataset.rank; renderRanks(); if (event.detail === 0) document.querySelector(`[data-rank="${activeGame}"]`)?.focus(); }));
   const rows = allScores(activeGame);
   document.getElementById("rankTable").innerHTML = rows.length
     ? `<table><thead><tr><th>Rank</th><th>Player</th><th>Points</th><th>Wins</th><th>Podiums</th><th>Events</th></tr></thead><tbody>${rows.map((r, i) => `<tr><td class="rank">#${i + 1}</td><td>${esc(r.name)}</td><td>${r.points}</td><td>${r.wins}</td><td>${r.podiums}</td><td>${r.events}</td></tr>`).join("")}</tbody></table>`

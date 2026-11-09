@@ -42,7 +42,7 @@ The configuration file contains only the public project URL and publishable key.
 - Sign in as admin and verify each test payment against Venmo before changing its status.
 - Export and securely retain database backups from Supabase. Do not put personal payment data or database backups in the public repository.
 
-The public project URL and publishable key are now present in `assets/site-config.js`. The existing Arena and staff management were confirmed working by the owner and observed in the signed-in dashboard on November 9, 2026. Do not re-bootstrap the owner. The additive launch migration described below remains unapplied in production. No private credentials belong in this repository.
+The public project URL and publishable key are now present in `assets/site-config.js`. The existing Arena and staff management were confirmed working by the owner and observed in the signed-in dashboard on November 9, 2026. Do not re-bootstrap the owner. The additive launch migration described below was applied successfully in production on November 9, 2026; its 23 rollback-only production assertions passed. No private credentials belong in this repository.
 
 
 ## Launch workflow migration (November 9, 2026)
@@ -51,10 +51,10 @@ Run `launch-workflows.sql` after the existing Arena and staff-management migrati
 
 This migration is transactional and repeatable. Unique indexes intentionally fail if legacy results or verified references conflict; inspect and reconcile those records before retrying rather than deleting them blindly. New result length/URL checks apply to new writes; existing rows are not retroactively validated.
 
-After applying it, refresh the Arena, publish a real upcoming event using the staff schedule form, and verify registration from a player account. Until then, the site keeps the original event request form available and states that calendar/history setup is pending. No published events are fabricated.
+The migration is now active. The refreshed Arena loads the calendar, own-registration history and staff schedule form. Publish a real upcoming event using the staff form once its schedule is confirmed. No published events are fabricated.
 
 Password recovery needs email delivery and the Arena redirect allowlist in Supabase Auth. The browser handles validated implicit email-link tokens, clears tokens from the URL, and submits password updates to Supabase. Real signup/confirmation/recovery delivery has not been tested.
 
 ## Repeatable automated checks
 
-Run `npm install --ignore-scripts` and `npm test` with Node 24. These run frontend workflow/link assertions and 48 database checks using PGlite with simulated Supabase Auth roles. GitHub Actions runs the same suite. These tests do not replace production role/account, email, payment-provider, accessibility, or mobile browser testing. See `../LAUNCH-STATUS.md`.
+Run `npm install --ignore-scripts` and `npm test` with Node 24. These run frontend workflow/link assertions, two complete randomized trivia rounds, 48 database checks and the 23-assertion rollback-only smoke script locally using PGlite with simulated Supabase Auth roles. GitHub Actions runs the same suite. These tests do not replace production role/account, email, payment-provider, accessibility, or mobile browser testing. See `../LAUNCH-STATUS.md`.

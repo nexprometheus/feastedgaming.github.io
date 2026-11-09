@@ -1,40 +1,35 @@
-# Feasted Gaming launch status — November 9, 2026
+# Feasted Gaming launch verification — November 9, 2026
 
-The launch checklist is **not fully complete**. Code implementation, local tests, live API checks, and real user workflows are distinct evidence levels. No automatic Venmo verification exists.
+The launch database migration is now applied in production. The site is deployed and the core database workflows passed production checks. Real email delivery, actual Venmo reconciliation and real-device/assistive-technology testing remain separate acceptance steps.
 
-## Implemented
+## Activated and verified
 
-- Tournament history, champion and MVP highlights, safe HTTPS media links, and separate rankings for Smash, Magic, Pokémon, Lorcana, One Piece, and Yu-Gi-Oh. Rankings award 5/3/2/1 points; gamer tags are grouped without regard to case, with ties sorted by wins and gamer tag.
-- Staff event scheduling, cancellation/closure, Pasadena-time public calendar, calendar-file download, and registration from a published future event.
-- Player registration history and withdrawal; staff registration inbox. Existing freeform requests remain available while the calendar migration is absent. Neither a request nor a payment submission confirms a seat.
-- Signup, sign-in, sign-out, password-recovery request and validated email-link/password-update handling. Session expiry and sign-out clear private page content. Real email delivery remains untested.
-- Published announcements on the Arena and main page; main-page links to player accounts and manual payment history.
-- Pending Venmo payment requests, admin-only manual review, and review attribution. New migration prevents verifying the same normalized transaction reference twice. A reference is a customer claim until matched manually against Venmo.
-- Additive, transactional, repeatable `supabase/launch-workflows.sql`; new result validation, own-registration policies, admin-only payment visibility, protected staff-role writes, and duplicate protections.
-- Responsive source styles, visible keyboard focus, 44px Arena controls, 16px inputs, and scrollable staff tables. These source changes are not a completed visual/accessibility audit.
-- Pokémon artwork returning 403 replaced with a verified HTTP 200 image URL.
+- Applied `supabase/launch-workflows.sql` in the existing, signed-in Supabase SQL Editor. The editor reported success; `championship_schedule` now returns HTTP 200. Existing owner authorization remains intact.
+- Ran `tests/production-smoke.sql` against production: **23 assertions passed**. Fixture records and temporary role changes were contained in a transaction and rolled back. Checks covered schedule writes, atomic tournament/results writes, pending payment creation and audited rejection, staff payment/role-management denial, server-controlled registration details, duplicate rejection, player withdrawal, cross-account privacy, anonymous denial and draft announcement isolation.
+- Reloaded the public Arena with the existing owner session. It recognized the admin and loaded the calendar, registration history, schedule form, staff inbox, payment history and staff roster without setup errors.
+- Public schedule, results and announcements were empty after rollback; no test events/results/announcements were published. No real payment was marked verified, transferred or refunded. Venmo remains a manual review process.
+- **48 local database checks** passed using PostgreSQL/PGlite with simulated Auth roles. The same production smoke script also passed locally with 23 assertions. Local checks include all six game circuits, unsafe media rejection, duplicate podium/player rejection, transaction rollback and duplicate verified-payment references.
+- Frontend workflow/security assertions and **116 internal file/anchor links** passed. Two full randomized 20-question trivia rounds also passed, including scoring guards, results and replay. JavaScript syntax checks passed. The frontend suite covers pending-only payments, event-linked registration, private content clearing, role visibility, safe media URLs, escaped announcements, case-insensitive/prototype-safe rankings, calendar files and pre-migration compatibility. Ranking buttons now expose their selected state and retain focus after keyboard activation.
+- Live public home, Arena, all five game guides, config/scripts, sitemap and robots returned HTTP 200. Anonymous requests to registrations, payments, staff roster, staff-management RPC and payment-review RPC returned HTTP 401.
+- External human-facing links/artwork were checked; the blocked Pokémon image was replaced with an HTTP 200 image. Font preconnect origins returning 404 at their roots do not indicate a broken stylesheet; actual stylesheet URLs returned 200.
 
-## Verified
+## Features available
 
-- `node tests/frontend.mjs`: workflow/security assertions plus **116 internal file and anchor links**. Includes event-linked registration payload, pending-only payment submission, role visibility, private content clearing, safe links, escaped announcements, prototype-safe rankings, ICS output, and migration fallback.
-- `node tests/database.mjs`: **48 checks** using local PostgreSQL/PGlite and simulated Supabase Auth roles. Includes repeated migration, anonymous denial, ownership isolation, event validation, duplicate registrations, staff/admin boundaries, payment auditing and duplicate verified references, unpublished announcement isolation, and transactional result rollback for all six games. PGlite uses built-in UUID generation in place of production pgcrypto.
-- JavaScript syntax checks and Git whitespace check passed.
-- GitHub Actions suite passed for implementation commit `b75b3ce35f5850cf89920b1f405f460c8b9cdae9`: [run](https://github.com/nexprometheus/feastedgaming.github.io/actions/runs/42592063499).
-- GitHub Pages deployed that implementation commit successfully: [deployment](https://github.com/nexprometheus/feastedgaming.github.io/actions/runs/42592060790). Later documentation/artwork commits have their own deployment status; do not infer it from this run.
-- Public home, Arena, five game guides, Arena script/config, sitemap, and robots returned HTTP 200 during this session.
-- Live anonymous requests to registrations, payments, and staff roster returned HTTP 401; anonymous staff-management and payment-review RPCs returned HTTP 401. This is a limited anonymous-boundary check, not a complete production RLS audit.
-- Existing signed-in owner dashboard, empty inbox/payment records, and staff-management roster were observed in Chrome; owner also confirmed Arena/staff management working. No role changes were performed during these observations.
-- External navigable destinations and artwork URLs were checked. Font preconnect origins return 404 at their roots, which is not a broken stylesheet; actual stylesheet URLs return 200. The blocked artwork was replaced with a tested image URL.
+Tournament archives, six-game rankings, champion/MVP/media highlights, staff scheduling/cancellation, Pasadena-time calendar, calendar-file download, published-event registration, own-registration history/withdrawal, staff inbox, announcements on both pages, account/recovery handling, and admin-only manual Venmo review are implemented. Database protections are now active rather than awaiting migration.
 
-## Required before calling launch complete
+The calendar currently contains **no real upcoming events**. Registration from the calendar requires staff to publish an actual event. A registration request does not confirm a seat or a payment. Rankings/highlights populate when staff record actual results.
 
-1. **Apply `supabase/launch-workflows.sql`** in the existing project's SQL Editor, after the already installed Arena/staff migrations. Live `championship_schedule` returned 404/PGRST205: this migration was not applied during this session. The calendar, registration history/withdrawal, and new database protections are therefore not yet activated in production. Do not re-bootstrap or alter the existing owner account.
-2. Publish an actual upcoming event through the staff form. No fake events, results, registrations, announcements, or payments were inserted into production for testing.
-3. Use separate real player, staff and admin sessions to verify own-record privacy, registration persistence on another device, withdrawals, result/highlight publishing, announcements, staff management safeguards, and payment review. Local role tests do not establish these production outcomes.
-4. Verify signup/confirmation/recovery email delivery and redirect allowlist, including expired links. Verify sign-in again after a password change. No user password was changed in this session.
-5. Match a real Venmo transaction manually, then test pending → verified/rejected and duplicate-reference behavior. No Venmo transaction, refund, membership activation or payment verification was performed.
-6. Finish real mobile/desktop visual and keyboard/screen-reader testing. The in-app browser could not reach the local preview; desktop automation subsequently stopped because it could not determine the active browser URL reliably. No claim of mobile or full accessibility verification is made.
-7. Test actual FormSubmit contact and membership email delivery. Existing markup and provider reachability do not prove inbox delivery.
-8. Recheck deployed version after the latest commit, including the updated image and cache-busted Arena/main community scripts. Preserve this distinction when updating issue #1.
+## Remaining acceptance steps
 
-Run `npm install --ignore-scripts` and `npm test` with Node 24 to repeat the automated suite. Tests use local fixtures and do not write production data. Apply migrations only in the trusted Supabase SQL Editor; never commit service-role keys, database credentials or private test records.
+- Publish the next real event once its game, date, start time, location and fee are confirmed. The owner was asked for these details; no schedule was invented.
+- Verify signup/confirmation/recovery email arrival, expired links and post-change sign-in with an actual test inbox. Password-changing steps require the user to enter their own new password. No password was changed during this work.
+- Verify actual FormSubmit contact/membership inbox delivery. Provider reachability and correct markup do not prove delivery.
+- Match a real Venmo transaction in Venmo before marking it verified. The rollback-only production test exercised rejection and audit attribution; it did not claim payment-provider verification. Duplicate-verification protection passed local tests.
+- Finish separate real player/staff/admin browser sessions and second-device persistence. Production tests exercised the actual database policies through transaction-local role/JWT simulation, not separate newly authenticated users.
+- A **390 × 738 Chrome phone emulator** was used to verify Arena hero/navigation, calendar, all six leaderboard switches and payment form, plus the main-page hero/mobile menu and trivia start/answer/score. The main mobile menu closed after navigation. Phone header sizing was tightened; a real quiz bug where button styles overrode hidden controls was fixed, with a full playback test added. Final hidden-control and keyboard-focus checks are part of the latest deployment verification. Physical iOS/Android and screen-reader acceptance remain unverified.
+
+## Repeatable checks
+
+With Node 24, run `npm install --ignore-scripts` then `npm test`. GitHub Actions runs the same automated suite. `tests/production-smoke.sql` is an owner-run rollback-only production check; preserve its final ROLLBACK and never convert its synthetic payment into a real verification.
+
+Deployment and checklist updates are tracked in [issue #1](https://github.com/nexprometheus/feastedgaming.github.io/issues/1). Never commit service-role keys, database credentials, private customer records or inbox contents.
