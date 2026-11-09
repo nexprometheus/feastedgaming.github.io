@@ -42,4 +42,19 @@ The configuration file contains only the public project URL and publishable key.
 - Sign in as admin and verify each test payment against Venmo before changing its status.
 - Export and securely retain database backups from Supabase. Do not put personal payment data or database backups in the public repository.
 
-The public project URL and publishable key are now present in `assets/site-config.js`. The database schema still needs to be applied, and the owner account still needs its admin role. Until those steps are complete, the Arena can show shared tournament history but account registration, result entry, announcements, and payment records that depend on the new tables remain unavailable. The page reports this setup state to visitors. No private credentials belong in this repository.
+The public project URL and publishable key are now present in `assets/site-config.js`. The existing Arena and staff management were confirmed working by the owner and observed in the signed-in dashboard on November 9, 2026. Do not re-bootstrap the owner. The additive launch migration described below remains unapplied in production. No private credentials belong in this repository.
+
+
+## Launch workflow migration (November 9, 2026)
+
+Run `launch-workflows.sql` after the existing Arena and staff-management migrations. It adds the shared schedule, event-linked registration, owner-only registration history and withdrawal, and database result validation. It also limits payment reads to the player or admin, blocks duplicate verified references, and requires staff role changes to use the protected management RPC. It does not change anyone’s existing role.
+
+This migration is transactional and repeatable. Unique indexes intentionally fail if legacy results or verified references conflict; inspect and reconcile those records before retrying rather than deleting them blindly. New result length/URL checks apply to new writes; existing rows are not retroactively validated.
+
+After applying it, refresh the Arena, publish a real upcoming event using the staff schedule form, and verify registration from a player account. Until then, the site keeps the original event request form available and states that calendar/history setup is pending. No published events are fabricated.
+
+Password recovery needs email delivery and the Arena redirect allowlist in Supabase Auth. The browser handles validated implicit email-link tokens, clears tokens from the URL, and submits password updates to Supabase. Real signup/confirmation/recovery delivery has not been tested.
+
+## Repeatable automated checks
+
+Run `npm install --ignore-scripts` and `npm test` with Node 24. These run frontend workflow/link assertions and 48 database checks using PGlite with simulated Supabase Auth roles. GitHub Actions runs the same suite. These tests do not replace production role/account, email, payment-provider, accessibility, or mobile browser testing. See `../LAUNCH-STATUS.md`.
