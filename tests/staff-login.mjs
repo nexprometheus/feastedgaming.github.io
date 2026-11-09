@@ -9,6 +9,26 @@ for(const file of (await readdir(root)).filter(file=>file.endsWith('.html')&&fil
  assert.ok(!(await readFile(new URL(file,root),'utf8')).includes('crew-access.html'),`${file} must not advertise the staff entrance`);
 }
 assert.ok(!(await readFile(new URL('sitemap.xml',root),'utf8')).includes('crew-access.html'));
+const shortcut=await readFile(new URL('assets/staff-shortcut.js',root),'utf8');
+const shortcutNavigations=[];
+let shortcutTime=0, shortcutClick;
+vm.runInNewContext(shortcut,{
+ document:{querySelector:()=>({addEventListener:(type,handler)=>{assert.equal(type,'click');shortcutClick=handler;}})},
+ Date:{now:()=>shortcutTime},window:{location:{assign:url=>shortcutNavigations.push(url)}}
+});
+let prevented=0;
+const clickLogo=()=>shortcutClick({preventDefault(){prevented++;}});
+for(let i=0;i<4;i++){clickLogo();shortcutTime+=500;}
+assert.equal(shortcutNavigations.length,0,'Normal logo clicks retain home navigation');
+assert.equal(prevented,0);
+clickLogo();
+assert.equal(shortcutNavigations[0],'crew-access.html');
+assert.equal(prevented,1);
+clickLogo();shortcutTime+=7000;
+for(let i=0;i<4;i++)clickLogo();
+assert.equal(shortcutNavigations.length,1,'Old clicks expire');
+clickLogo();
+assert.equal(shortcutNavigations.length,2);
 async function attempt(role,{authFailure=false,roleFailure=false}={}){
  const nodes=Object.fromEntries(['staffLoginForm','staffLoginButton','staffLoginStatus','staffEmail','staffPassword'].map(id=>[id,{value:'',disabled:false,textContent:'',handlers:{},addEventListener(type,fn){this.handlers[type]=fn;}}]));
  nodes.staffEmail.value='staff@example.test';nodes.staffPassword.value='test-only-password';

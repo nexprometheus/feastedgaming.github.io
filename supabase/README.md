@@ -63,3 +63,6 @@ Run `npm install --ignore-scripts` and `npm test` with Node 24. These run fronte
 ## Unlisted staff entrance
 
 `crew-access.html` provides a staff-only sign-in flow and is omitted from public navigation and the sitemap, with noindex/nofollow metadata. It authenticates existing accounts with Supabase, checks `get_championship_role`, and saves a session only for staff/admin accounts before opening the Arena staff tools. Player accounts and role-check failures cannot enter through this flow. Existing database authorization remains the security boundary: this is an unlisted public URL, not a secret or a substitute for access controls. No shared staff password or new privileges are introduced.
+
+
+Staff shortcut: on the main page, click or tap the top-left Feasted Gaming logo five times within six seconds to open the unlisted staff sign-in. The first four clicks retain normal home navigation. Keyboard users can activate the focused logo with Enter five times. This shortcut grants no permissions; Supabase still checks the staff/admin role.
