@@ -19,6 +19,9 @@ Tournament archives, six-game rankings, champion/MVP/media highlights, staff sch
 
 The calendar currently contains **no real upcoming events**. Registration from the calendar requires staff to publish an actual event. A registration request does not confirm a seat or a payment. Rankings/highlights populate when staff record actual results.
 
+- Public Supabase Auth settings returned HTTP 200: email signup enabled, signup not disabled, and automatic email confirmation disabled (confirmation required). These flags do not prove inbox delivery.
+- Website code commit `2857bc9bd3fee8bbaad7733cd19bd4c22fee09b3` passed [GitHub checks](https://github.com/nexprometheus/feastedgaming.github.io/actions/runs/42595445454) and [Pages deployment](https://github.com/nexprometheus/feastedgaming.github.io/actions/runs/42595444455). The published home, Arena and both community/Arena scripts matched the committed source exactly after newline normalization.
+
 ## Remaining acceptance steps
 
 - Publish the next real event once its game, date, start time, location and fee are confirmed. The owner was asked for these details; no schedule was invented.
@@ -26,7 +29,7 @@ The calendar currently contains **no real upcoming events**. Registration from t
 - Verify actual FormSubmit contact/membership inbox delivery. Provider reachability and correct markup do not prove delivery.
 - Match a real Venmo transaction in Venmo before marking it verified. The rollback-only production test exercised rejection and audit attribution; it did not claim payment-provider verification. Duplicate-verification protection passed local tests.
 - Finish separate real player/staff/admin browser sessions and second-device persistence. Production tests exercised the actual database policies through transaction-local role/JWT simulation, not separate newly authenticated users.
-- A **390 × 738 Chrome phone emulator** was used to verify Arena hero/navigation, calendar, all six leaderboard switches and payment form, plus the main-page hero/mobile menu and trivia start/answer/score. The main mobile menu closed after navigation. Phone header sizing was tightened; a real quiz bug where button styles overrode hidden controls was fixed, with a full playback test added. Final hidden-control and keyboard-focus checks are part of the latest deployment verification. Physical iOS/Android and screen-reader acceptance remain unverified.
+- A **390 × 738 Chrome phone emulator** was used to verify Arena hero/navigation, calendar, all six leaderboard switches and payment form, plus the main-page hero/mobile menu and trivia start/answer/score. The main mobile menu closed after navigation. Phone header sizing was tightened; a real quiz bug where button styles overrode hidden controls was fixed, with a full playback test added. Final live checks confirmed that Start disappears after starting, Next appears only after answering, and advancing resets the answer controls. Keyboard Tab/Enter switched leaderboards while retaining a visible focus indicator. Physical iOS/Android and screen-reader acceptance remain unverified.
 
 ## Repeatable checks
 
