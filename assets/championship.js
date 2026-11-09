@@ -273,6 +273,29 @@ document.getElementById("resultForm").addEventListener("submit", async event => 
     if (place < 1 || place > 999) { setStatus("resultStatus", "Placements must be positive numbers."); return; }
     results.push({ name: match[1].trim(), place });
   }
+  const playerNames = results.map(result => result.name.toLocaleLowerCase().trim());
+  if (new Set(playerNames).size !== playerNames.length) {
+    setStatus("resultStatus", "Each player can appear only once in a tournament. Remove duplicate gamer tags.");
+    return;
+  }
+  if (results.filter(result => result.place === 1).length !== 1) {
+    setStatus("resultStatus", "A tournament must have exactly one first-place champion.");
+    return;
+  }
+  for (const place of [2, 3]) {
+    if (results.filter(result => result.place === place).length > 1) {
+      setStatus("resultStatus", `Placement ${place} is listed more than once. Correct the final standings before saving.`);
+      return;
+    }
+  }
+  if (results.some(result => result.name.length > 80)) {
+    setStatus("resultStatus", "Player names must be 80 characters or fewer.");
+    return;
+  }
+  if (!document.getElementById("resultDate").value || !document.getElementById("resultTitle").value.trim()) {
+    setStatus("resultStatus", "Enter the tournament date and name before saving.");
+    return;
+  }
   if (!results.some(result => result.place === 1)) { setStatus("resultStatus", "Add a player with placement 1 to record the champion."); return; }
   const eventData = { game: document.getElementById("resultGame").value, date: document.getElementById("resultDate").value, title: document.getElementById("resultTitle").value.trim(), results, mvp: document.getElementById("mvp").value.trim(), highlight: document.getElementById("highlight").value.trim(), notes: document.getElementById("eventNotes").value.trim() };
   try {
