@@ -116,21 +116,21 @@ async function loadCloud() {
   }
   const rows = await supabase("/rest/v1/tournament_events?select=id,game,tournament_name,event_date,mvp,highlight_url,match_notes,created_at,tournament_results(player_name,placement)&order=event_date.desc");
   data.events = (rows || []).map(row => ({ id: row.id, game: row.game, title: row.tournament_name, date: row.event_date, mvp: row.mvp, highlight: row.highlight_url, notes: row.match_notes, savedAt: Date.parse(row.created_at) || 0, results: (row.tournament_results || []).map(result => ({ name: result.player_name, place: result.placement })) }));
-  let announcements = [];
-  let announcementWarning = "";
-  try {
-    announcements = await supabase("/rest/v1/championship_announcements?select=id,title,body,created_at&published=eq.true&order=created_at.desc&limit=20");
-  } catch (error) {
-    // Optional announcements must not break tournament history and rankings.
-    announcementWarning = "Announcements are temporarily unavailable while the database is being updated.";
-    console.warn("Championship announcements:", error.message);
+  render();
+  let setupReady = true;
+  try { await loadAnnouncements(); }
+  catch {
+    setupReady = false;
+    document.getElementById("announcementList").innerHTML = '<div class="empty">Announcements will be available after the owner finishes the Supabase setup.</div>';
   }
+  if (session?.access_token) await refreshAccount();
+  setStatus("connectionStatus", setupReady ? "Connected. Tournament history and rankings are shared across devices." : "Tournament history is connected. The owner still needs to run the Arena database setup to enable accounts, announcements, and payment records.");
+}
+async function loadAnnouncements() {
+  const announcements = await supabase("/rest/v1/championship_announcements?select=id,title,body,created_at&published=eq.true&order=created_at.desc&limit=20");
   document.getElementById("announcementList").innerHTML = announcements.length
     ? announcements.map(item => `<article class="historyitem"><div class="kicker">${esc(new Date(item.created_at).toLocaleDateString())}</div><h3>${esc(item.title)}</h3><p class="muted">${esc(item.body).replace(/\n/g, "<br>")}</p></article>`).join("")
-    : `<div class="empty">${esc(announcementWarning || "No current announcements.")}</div>`;
-  render();
-  if (session?.access_token) await refreshAccount();
-  setStatus("connectionStatus", "Connected. Tournament history and rankings are shared across devices.");
+    : '<div class="empty">No current announcements.</div>';
 }
 async function authRequest(path, body) {
   const response = await fetch(`${CONFIG.url.replace(/\/$/, "")}/auth/v1/${path}`, {
@@ -142,26 +142,25 @@ async function authRequest(path, body) {
 }
 async function refreshAccount() {
   if (!session?.access_token) return;
+  let rolesReady = true;
   try {
     staffRole = await supabase("/rest/v1/rpc/get_championship_role", { method: "POST", authenticated: true, body: {} });
-    const email = session.user?.email || "signed in";
-    setStatus("connectionStatus", `Signed in as ${email}${staffRole ? ` · ${staffRole}` : ""}.`);
-    document.getElementById("signInBtn").hidden = true;
-    document.getElementById("signUpBtn").hidden = true;
-    document.getElementById("signOutBtn").hidden = false;
-    document.getElementById("staff").hidden = staffRole !== "staff" && staffRole !== "admin";
-    document.getElementById("staffDashboard").hidden = staffRole !== "staff" && staffRole !== "admin";
-    document.getElementById("ownerDashboard").hidden = staffRole !== "admin";
-    await loadPaymentHistory();
-    if (staffRole === "admin" || staffRole === "staff") await loadStaffRegistrations();
-    if (staffRole === "admin") await loadAdminDashboard();
-  } catch (error) {
-    saveSession(null);
-    staffRole = null;
-    document.getElementById("staff").hidden = true;
-    document.getElementById("staffDashboard").hidden = true;
-    document.getElementById("ownerDashboard").hidden = true;
-    setStatus("connectionStatus", `Session needs attention: ${error.message}`);
+  } catch { staffRole = null; rolesReady = false; }
+  const email = session.user?.email || "signed in";
+  document.getElementById("signInBtn").hidden = true;
+  document.getElementById("signUpBtn").hidden = true;
+  document.getElementById("signOutBtn").hidden = false;
+  document.getElementById("staff").hidden = staffRole !== "staff" && staffRole !== "admin";
+  document.getElementById("staffDashboard").hidden = staffRole !== "staff" && staffRole !== "admin";
+  document.getElementById("ownerDashboard").hidden = staffRole !== "admin";
+  if (!rolesReady) setStatus("connectionStatus", `Signed in as ${email}. The owner still needs to finish the Arena database setup; staff tools remain locked.`);
+  try { await loadPaymentHistory(); }
+  catch { document.getElementById("paymentHistory").textContent = "Payment history will be available after the owner finishes the Supabase setup."; }
+  if (staffRole === "admin" || staffRole === "staff") {
+    try { await loadStaffRegistrations(); } catch { document.getElementById("staffRegistrations").textContent = "Registration inbox is unavailable until the database setup is complete."; }
+  }
+  if (staffRole === "admin") {
+    try { await loadAdminDashboard(); } catch { document.getElementById("paymentRequests").textContent = "Payment records are unavailable until the database setup is complete."; }
   }
 }
 async function loadStaffRegistrations() {
@@ -218,8 +217,7 @@ document.getElementById("announcementForm").addEventListener("submit", async eve
     await supabase("/rest/v1/championship_announcements", { method: "POST", authenticated: true, body, prefer: "return=minimal" });
     event.target.reset();
     setStatus("announcementStatus", "Announcement published.");
-    const announcements = await supabase("/rest/v1/championship_announcements?select=id,title,body,created_at&published=eq.true&order=created_at.desc&limit=20");
-    document.getElementById("announcementList").innerHTML = announcements.map(item => `<article class="historyitem"><div class="kicker">${esc(new Date(item.created_at).toLocaleDateString())}</div><h3>${esc(item.title)}</h3><p class="muted">${esc(item.body).replace(/\n/g, "<br>")}</p></article>`).join("") || '<div class="empty">No current announcements.</div>';
+    await loadAnnouncements();
   } catch (error) { setStatus("announcementStatus", `Could not publish: ${error.message}`); }
 });
 

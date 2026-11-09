@@ -42,4 +42,4 @@ The configuration file contains only the public project URL and publishable key.
 - Sign in as admin and verify each test payment against Venmo before changing its status.
 - Export and securely retain database backups from Supabase. Do not put personal payment data or database backups in the public repository.
 
-Until the owner performs the Supabase setup and supplies the public configuration, the Arena can show legacy browser-local history, but account registration, shared event writes, announcements, and payment records remain unavailable. No private credentials are required in this repository.
+The public project URL and publishable key are now present in `assets/site-config.js`. The database schema still needs to be applied, and the owner account still needs its admin role. Until those steps are complete, the Arena can show shared tournament history but account registration, result entry, announcements, and payment records that depend on the new tables remain unavailable. The page reports this setup state to visitors. No private credentials belong in this repository.
