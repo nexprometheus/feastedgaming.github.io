@@ -33,3 +33,12 @@ The frontend still needs the Supabase project URL and publishable/anon key wired
 - Public visitors can view tournament events/results and submit player registrations.
 - Only authenticated users listed in `championship_staff` can record or edit event results.
 - Review public registration abuse controls (CAPTCHA/rate limiting) before opening registration widely.
+
+
+## November 2026 implementation audit
+
+The repository now also contains `supabase/schema.sql` (profiles, staff_members, games, tournaments, registrations, results, announcements, payment_requests). **This is a separate proposed data model** from `championship-arena-schema.sql` (championship_staff, tournament_events, tournament_results, player_registrations). Do not run both and assume the existing Championship Arena is connected: the current `championship.html` stores records in browser localStorage and has no live Supabase configuration. The two models need a deliberate migration and UI integration.
+
+**Safe next steps:** (1) obtain the project's public Project URL and publishable key from Supabase; (2) choose a single schema and run it in SQL Editor; (3) bootstrap the first admin by authenticated UUID; (4) wire client reads and authenticated writes with RLS; (5) migrate existing browser-local backups only with owner review; (6) test staff/nonstaff access and deployment. Do not expose secret/service-role keys or database passwords. Venmo requests remain manually verified, never automatically paid based on user form input.
+
+The actual Championship Arena page is `/championship.html` (not `/championship-arena/`).
