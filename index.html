@@ -85,7 +85,14 @@ h1{font:800 clamp(2.5rem,5.7vw,4.8rem)/1.08 var(--serif);letter-spacing:-.025em;
     .business-hours dt{font-size:.85rem;color:#ddd3e4}.business-hours dd{margin:0;text-align:right;color:#f4d697;font-size:.85rem;font-weight:700}.business-hours dd small{display:block;color:#bcb0c6;font-size:.7rem;font-weight:400;margin-top:3px}
     .business-hours .hours-zone{margin:8px 0 0;text-align:center;color:#c7b9cf;font-size:.7rem;letter-spacing:.08em}
     @media(max-width:420px){.business-hours{padding:18px}.business-hours dl>div{flex-direction:column;gap:4px}.business-hours dd{text-align:left}}
-  </style>
+  
+    .ocean-scene{position:relative;width:100%;min-width:0;border:1px solid rgba(232,200,134,.45);border-radius:24px;overflow:hidden;box-shadow:0 0 45px rgba(121,174,201,.16);background:#11152b}.ocean-scene svg{display:block;width:100%;height:auto}.ocean-toggle{position:absolute;right:12px;top:12px;padding:8px 12px;border:1px solid rgba(232,200,134,.45);border-radius:20px;background:rgba(10,18,35,.85);color:#f1ddb5;font:600 .72rem var(--sans);cursor:pointer}.ocean-toggle:focus-visible{outline:2px solid #f1ddb5;outline-offset:3px}
+    .ship-voyage{animation:sail-voyage 28s ease-in-out infinite alternate}.ship-bob{animation:sail-bob 3.6s ease-in-out infinite}.ocean-wave-back{animation:wave-drift 8s linear infinite}.ocean-wave-front{animation:wave-drift 5s linear infinite reverse}
+    @keyframes sail-voyage{from{transform:translate(225px,395px)}to{transform:translate(675px,395px)}}@keyframes sail-bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(9px) rotate(2deg)}}@keyframes wave-drift{from{transform:translateX(0)}to{transform:translateX(180px)}}
+    .ocean-scene.is-paused *{animation-play-state:paused!important}
+    @media(max-width:820px){.ocean-scene{margin-top:30px}}
+    @media(prefers-reduced-motion:reduce){.ocean-scene .ship-voyage{animation:none!important;transform:translate(450px,395px)}.ocean-scene .ship-bob,.ocean-scene .ocean-wave{animation:none!important}.ocean-toggle{display:none}}
+</style>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -97,7 +104,43 @@ h1{font:800 clamp(2.5rem,5.7vw,4.8rem)/1.08 var(--serif);letter-spacing:-.025em;
   <main id="main">
     <section class="hero" id="home">
       <div class="wrap hero-grid"><div class="hero-copy"><div class="kicker">Your next game night, upgraded</div><div class="tag" style="margin-top:14px">⌖ Located in Pasadena, California</div><h1>ENTER THE<span>NEXUS.</span></h1><p>Connect with players, find your next card game, and join friendly tournaments in a world built for the whole gaming community.</p><aside class="business-hours" aria-label="Opening hours"><div class="hours-ornament" aria-hidden="true">✦ ── ◆ ── ✦</div><h3>Tavern Hours</h3><p class="hours-welcome">The gates are open, adventurer.</p><dl><div><dt>Sunday–Thursday</dt><dd>9:00 AM–10:30 PM</dd></div><div><dt>Friday–Saturday</dt><dd>9:00 AM–1:00 AM<small>Closes the next day</small></dd></div></dl><p class="hours-zone">Opening hours · Pacific Time</p></aside><div class="actions"><a class="btn primary" href="#tcg">Explore the card games&nbsp; ↓</a><a class="btn secondary" href="#events">See upcoming events</a><a class="btn secondary" href="https://discord.gg/J6PPwEKbY" target="_blank" rel="noopener noreferrer">Join our Discord ↗</a></div></div>
-        <img class="hero-art" src="assets/hero-art.svg" alt="A futuristic starship crossing an electric-blue planet above an illuminated alien city" width="900" height="650">
+        <div class="ocean-scene" id="oceanScene">
+        <svg viewBox="0 0 900 650" role="img" aria-labelledby="oceanTitle oceanDesc" xmlns="http://www.w3.org/2000/svg">
+          <title id="oceanTitle">Voyage to the Nexus</title><desc id="oceanDesc">A golden-sailed fantasy ship glides across moonlit turquoise waves beneath a starry purple sky.</desc>
+          <defs>
+            <linearGradient id="oceanSky" x2="0" y2="1"><stop stop-color="#100f2b"/><stop offset="1" stop-color="#645274"/></linearGradient>
+            <linearGradient id="oceanWater" x2="0" y2="1"><stop stop-color="#286879"/><stop offset=".5" stop-color="#123f59"/><stop offset="1" stop-color="#071b32"/></linearGradient>
+            <linearGradient id="sailGold" x2="1" y2="1"><stop stop-color="#fff0bf"/><stop offset="1" stop-color="#cda364"/></linearGradient>
+            <radialGradient id="moonGlow"><stop stop-color="#ffe5ac" stop-opacity=".35"/><stop offset="1" stop-color="#ffe5ac" stop-opacity="0"/></radialGradient>
+            <pattern id="wavePattern" width="180" height="60" patternUnits="userSpaceOnUse"><path d="M0 30 Q45 4 90 30 T180 30" fill="none" stroke="#8be4dc" stroke-opacity=".35" stroke-width="3"/></pattern>
+          </defs>
+          <rect width="900" height="650" rx="24" fill="url(#oceanSky)"/>
+          <circle cx="686" cy="155" r="135" fill="url(#moonGlow)"/><circle cx="686" cy="155" r="47" fill="#f8dfaa"/><circle cx="703" cy="143" r="42" fill="#36304e"/>
+          <g fill="#f6deaf"><circle cx="91" cy="111" r="2"/><circle cx="182" cy="68" r="2"/><circle cx="320" cy="137" r="2"/><circle cx="488" cy="75" r="2"/><circle cx="798" cy="85" r="2"/><circle cx="827" cy="242" r="2"/><path d="M403 173l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/></g>
+          <path d="M0 343L97 267 155 310 224 233 318 343 463 343 524 300 587 343 900 343V410H0Z" fill="#192b43"/>
+          <path d="M0 369L151 325 244 362 361 320 485 375 728 345 900 370V440H0Z" fill="#163e52"/>
+          <path d="M0 384Q225 360 450 385T900 384V650H0Z" fill="url(#oceanWater)"/>
+          <path d="M670 392l-39 29h88l-54 32h71l-103 39h117" fill="none" stroke="#f4d596" stroke-opacity=".2" stroke-width="8"/>
+          <g class="ship-voyage"><g class="ship-bob">
+            <ellipse cx="0" cy="43" rx="135" ry="10" fill="#6ce0d7" opacity=".2"/>
+            <path d="M-124 3Q-25 28 123-6L94 34Q6 63-91 29Z" fill="#654535" stroke="#e7bf79" stroke-width="3"/>
+            <path d="M-90 24Q0 45 98 19M-104 9L109 5" fill="none" stroke="#c29763" stroke-width="3"/>
+            <path d="M-130 1L-157-17M-10 5V-211M63 7V-166" stroke="#e9c88c" stroke-width="6" stroke-linecap="round"/>
+            <path d="M-18-197Q-100-148-100-48Q-52-31-18-47Z" fill="url(#sailGold)" stroke="#ebd4a1" stroke-width="2"/>
+            <path d="M1-190Q93-148 89-58Q46-42 1-51Z" fill="url(#sailGold)" stroke="#ebd4a1" stroke-width="2"/>
+            <path d="M73-155Q136-112 128-44L73-41Z" fill="#c2a7d8" stroke="#e6c9ef" stroke-width="2"/>
+            <path d="M-10-211L35-204-10-187Z" fill="#bda0de"/>
+            <path d="M33-135l7 18 19 6-19 7-7 18-7-18-19-7 19-6z" fill="#795c91"/>
+            <path d="M-65-35V6M-40-30V10M85-26V2" stroke="#caa06a" stroke-width="3"/>
+            <rect x="-71" y="-35" width="12" height="15" rx="3" fill="#ffdc83"/><rect x="79" y="-27" width="11" height="14" rx="3" fill="#ffdc83"/>
+          </g></g>
+          <g class="ocean-wave ocean-wave-back"><rect x="-180" y="430" width="1260" height="210" fill="url(#wavePattern)"/></g>
+          <path d="M0 572Q90 540 180 571T360 571T540 571T720 571T900 571V650H0Z" fill="#09283e" opacity=".8"/>
+          <g class="ocean-wave ocean-wave-front"><rect x="-180" y="553" width="1260" height="100" fill="url(#wavePattern)"/></g>
+          <text x="450" y="610" text-anchor="middle" fill="#e8c886" font-family="Georgia,serif" font-size="17" letter-spacing="5">YOUR NEXT ADVENTURE AWAITS</text>
+        </svg>
+        <button class="ocean-toggle" id="oceanToggle" type="button" aria-pressed="false">Pause animation</button>
+      </div>
       </div>
     </section>
     <div class="rune-rule"></div><div class="intro-strip"><div class="wrap"><span><b>✦</b> EXPLORE NEW WORLDS</span><span><b>◆</b> BUILD YOUR DECK</span><span><b>✦</b> FIND YOUR CREW</span></div></div>
@@ -212,6 +255,8 @@ h1{font:800 clamp(2.5rem,5.7vw,4.8rem)/1.08 var(--serif);letter-spacing:-.025em;
 
 
 
-<script src="assets/site-config.js"></script><script src="assets/community.js?v=20261109-launch"></script><script src="assets/staff-shortcut.js?v=20261109-1"></script></body>
+<script src="assets/site-config.js"></script><script src="assets/community.js?v=20261109-launch"></script><script src="assets/staff-shortcut.js?v=20261109-1"></script><script>
+    document.getElementById('oceanToggle').addEventListener('click',function(){const paused=document.getElementById('oceanScene').classList.toggle('is-paused');this.setAttribute('aria-pressed',String(paused));this.textContent=paused?'Resume animation':'Pause animation';});
+  </script></body>
 </html>
 
