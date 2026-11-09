@@ -2,7 +2,7 @@
   "name": "feasted-gaming-launch-checks",
   "private": true,
   "scripts": {
-    "test": "node tests/frontend.mjs && node tests/trivia.mjs && node tests/database.mjs"
+    "test": "node tests/frontend.mjs && node tests/trivia.mjs && node tests/staff-login.mjs && node tests/database.mjs"
   },
   "devDependencies": {
     "@electric-sql/pglite": "0.5.15"

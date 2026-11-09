@@ -58,3 +58,8 @@ Password recovery needs email delivery and the Arena redirect allowlist in Supab
 ## Repeatable automated checks
 
 Run `npm install --ignore-scripts` and `npm test` with Node 24. These run frontend workflow/link assertions, two complete randomized trivia rounds, 48 database checks and the 23-assertion rollback-only smoke script locally using PGlite with simulated Supabase Auth roles. GitHub Actions runs the same suite. These tests do not replace production role/account, email, payment-provider, accessibility, or mobile browser testing. See `../LAUNCH-STATUS.md`.
+
+
+## Unlisted staff entrance
+
+`crew-access.html` provides a staff-only sign-in flow and is omitted from public navigation and the sitemap, with noindex/nofollow metadata. It authenticates existing accounts with Supabase, checks `get_championship_role`, and saves a session only for staff/admin accounts before opening the Arena staff tools. Player accounts and role-check failures cannot enter through this flow. Existing database authorization remains the security boundary: this is an unlisted public URL, not a secret or a substitute for access controls. No shared staff password or new privileges are introduced.
