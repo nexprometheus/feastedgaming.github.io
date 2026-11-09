@@ -116,10 +116,18 @@ async function loadCloud() {
   }
   const rows = await supabase("/rest/v1/tournament_events?select=id,game,tournament_name,event_date,mvp,highlight_url,match_notes,created_at,tournament_results(player_name,placement)&order=event_date.desc");
   data.events = (rows || []).map(row => ({ id: row.id, game: row.game, title: row.tournament_name, date: row.event_date, mvp: row.mvp, highlight: row.highlight_url, notes: row.match_notes, savedAt: Date.parse(row.created_at) || 0, results: (row.tournament_results || []).map(result => ({ name: result.player_name, place: result.placement })) }));
-  const announcements = await supabase("/rest/v1/championship_announcements?select=id,title,body,created_at&published=eq.true&order=created_at.desc&limit=20");
+  let announcements = [];
+  let announcementWarning = "";
+  try {
+    announcements = await supabase("/rest/v1/championship_announcements?select=id,title,body,created_at&published=eq.true&order=created_at.desc&limit=20");
+  } catch (error) {
+    // Optional announcements must not break tournament history and rankings.
+    announcementWarning = "Announcements are temporarily unavailable while the database is being updated.";
+    console.warn("Championship announcements:", error.message);
+  }
   document.getElementById("announcementList").innerHTML = announcements.length
     ? announcements.map(item => `<article class="historyitem"><div class="kicker">${esc(new Date(item.created_at).toLocaleDateString())}</div><h3>${esc(item.title)}</h3><p class="muted">${esc(item.body).replace(/\n/g, "<br>")}</p></article>`).join("")
-    : '<div class="empty">No current announcements.</div>';
+    : `<div class="empty">${esc(announcementWarning || "No current announcements.")}</div>`;
   render();
   if (session?.access_token) await refreshAccount();
   setStatus("connectionStatus", "Connected. Tournament history and rankings are shared across devices.");
