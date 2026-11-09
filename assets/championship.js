@@ -235,7 +235,8 @@ document.getElementById("authForm").addEventListener("submit", async event => {
 document.getElementById("signUpBtn").addEventListener("click", async () => {
   if (!CLOUD_READY) return;
   try {
-    const result = await authRequest("signup", { email: document.getElementById("authEmail").value.trim(), password: document.getElementById("authPassword").value });
+    const redirectTo = window.location.origin + window.location.pathname;
+    const result = await authRequest("signup?redirect_to=" + encodeURIComponent(redirectTo), { email: document.getElementById("authEmail").value.trim(), password: document.getElementById("authPassword").value });
     if (result.access_token) {
       saveSession({ ...result, expires_at: Date.now() / 1000 + (result.expires_in || 3600) });
       await refreshAccount();
